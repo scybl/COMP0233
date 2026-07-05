@@ -2,15 +2,15 @@
 
 [中文版本](README.zh.md)
 
-Tube Planning is a Python project for ranking public-transport network extension proposals. It models a transport system as a weighted graph, solves flow problems with Edmonds-Karp, and combines cost and performance criteria into a deterministic proposal score.
+Tube Planning is a Python project for evaluating public-transport network extension proposals. It reads a baseline network and one or more candidate extensions from CSV edge tables, converts travel-time data into graph capacity, evaluates each proposal against cost and flow criteria, and returns a deterministic ranking.
 
-## Highlights
+## Functionality
 
-- Weighted graph representation for transport networks and candidate proposals.
-- Breadth-first search and Edmonds-Karp maximum-flow implementation.
-- Multi-source, multi-sink maximum-flow and sufficient-flow evaluation.
-- Essential/desirable criteria scoring for cost and transport capacity.
-- Offline showcase data, CLI workflow, and importable Python API.
+The project models a transport network as an adjacency matrix, where each station is a node and each connection is an edge. Candidate proposals are represented as additional edge tables and can be merged with the baseline network for evaluation.
+
+The evaluation pipeline combines two kinds of criteria. Cost criteria use fixed infrastructure and operating-cost assumptions to check whether a proposal stays within a planning budget. Performance criteria use breadth-first search and Edmonds-Karp maximum flow to estimate how much capacity a proposal adds between selected source and sink stations, including multi-source, multi-sink, and sufficient-flow scenarios.
+
+The package can be used in three ways: a one-command offline showcase, a CLI that ranks proposal files and outputs text/CSV/JSON, and a Python API for integrating the network and scoring logic into other scripts.
 
 ## Quick Start
 
