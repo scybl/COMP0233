@@ -1,0 +1,48 @@
+# Python cache and build artifacts
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*$py.class
+*.whl
+MANIFEST
+
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Virtual environments
+env/
+venv/
+.venv/
+conda-env/
+*.conda
+*.env
+*.venv
+
+# Editor / IDE settings
+.vscode/
+.idea/
+*.swp
+*~
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb~
+jupytext.toml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test outputs / coverage
+.coverage
+.coverage.*
+htmlcov/
+cov.xml
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.pyre/
+pip-wheel-metadata/

@@ -1,0 +1,24 @@
+{
+  "essential": [
+    {
+      "description": "Keep infrastructure spend within the planning budget",
+      "costs": ["infra"],
+      "budget": 200,
+      "weight": 1.0
+    }
+  ],
+  "desirable": [
+    {
+      "description": "Increase cross-city capacity between terminal stations",
+      "sources": [0],
+      "sinks": [5],
+      "weight": 2.0
+    },
+    {
+      "description": "Prefer lower total operating cost",
+      "costs": ["total"],
+      "budget": 5000,
+      "weight": 0.05
+    }
+  ]
+}

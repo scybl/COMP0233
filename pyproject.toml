@@ -1,0 +1,31 @@
+[project]
+name = "tube_planning"
+version = "0.1.0"
+description = "Tube planning optimisation and evaluation package"
+readme = "README.md"
+requires-python = ">=3.10.0"
+dependencies = [
+    "numpy",
+    "requests",
+]
+
+[project.scripts]
+evaluate-proposals = "tube_planning.evaluation:main"
+tube-planning-showcase = "tube_planning.showcase:main"
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "ruff",
+]
+
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["tube_planning*"]
+exclude = ["tests*", "docs*"]

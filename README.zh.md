@@ -1,18 +1,18 @@
 # Tube Planning
 
-[中文版本](README.zh.md)
+[English Version](README.md)
 
-Tube Planning is a Python project for ranking public-transport network extension proposals. It models a transport system as a weighted graph, solves flow problems with Edmonds-Karp, and combines cost and performance criteria into a deterministic proposal score.
+Tube Planning 是一个用于评估公共交通线路扩展方案的 Python 项目。项目将交通网络建模为加权图，使用 Edmonds-Karp 计算最大流，并结合成本与性能指标，对候选线路方案进行可复现的评分和排序。
 
-## Highlights
+## 项目亮点
 
-- Weighted graph representation for transport networks and candidate proposals.
-- Breadth-first search and Edmonds-Karp maximum-flow implementation.
-- Multi-source, multi-sink maximum-flow and sufficient-flow evaluation.
-- Essential/desirable criteria scoring for cost and transport capacity.
-- Offline showcase data, CLI workflow, and importable Python API.
+- 使用 NumPy 邻接矩阵表示交通网络和候选方案。
+- 实现 BFS 和 Edmonds-Karp 最大流算法。
+- 支持多源点、多汇点的最大流与充足流评估。
+- 支持 essential/desirable 两类评分指标，综合评估成本和运力。
+- 提供离线示例数据、命令行工具和可直接调用的 Python API。
 
-## Quick Start
+## 安装与启动
 
 ```bash
 python3 -m venv .venv
@@ -21,19 +21,19 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
-Run the one-command showcase:
+运行一键展示：
 
 ```bash
 python -m tube_planning.showcase
 ```
 
-Or use the project shortcut:
+也可以使用项目快捷命令：
 
 ```bash
 make demo
 ```
 
-Expected output:
+示例输出：
 
 ```text
 Tube Planning Showcase
@@ -47,21 +47,21 @@ Rank  Proposal                   Score  Essential
 2     crosslink                  97.40  pass
 ```
 
-After installation, the same showcase is also available as:
+安装后也可以直接运行：
 
 ```bash
 tube-planning-showcase
 ```
 
-## CLI Usage
+## 命令行调用
 
-Run the bundled example through the CLI:
+使用内置离线示例运行完整评估：
 
 ```bash
 python -m tube_planning.evaluation --network-file examples/baseline_network.csv --format csv examples/costs.fixed-cost examples/criteria.cfile "examples/proposals/*.csv"
 ```
 
-Output:
+输出：
 
 ```csv
 rank,proposal,score,essential_passed
@@ -69,27 +69,27 @@ rank,proposal,score,essential_passed
 2,crosslink,97.40,True
 ```
 
-Installed CLI form:
+已安装命令行版本：
 
 ```bash
 evaluate-proposals --network-file examples/baseline_network.csv --format json examples/costs.fixed-cost examples/criteria.cfile "examples/proposals/*.csv"
 ```
 
-Useful options:
+常用参数：
 
-- `--network-file PATH`: use a local baseline network CSV.
-- `--format {text,csv,json}`: choose the output format.
-- `-o, --output-file PATH`: write rankings to a file.
+- `--network-file PATH`：指定本地基准网络 CSV。
+- `--format {text,csv,json}`：指定输出格式。
+- `-o, --output-file PATH`：将排序结果写入文件。
 
-The bundled CLI scenario can also be run with:
+内置 CLI 场景也可以用快捷命令运行：
 
 ```bash
 make cli
 ```
 
-## Python API Example
+## Python 代码调用示例
 
-This example evaluates the bundled proposals programmatically:
+下面的代码会读取 `examples/` 中的基准网络、成本配置、指标配置和两个候选方案，并输出排序结果：
 
 ```python
 from pathlib import Path
@@ -121,49 +121,49 @@ for rank, record in enumerate(ranked, start=1):
     print(rank, record["proposal"].name, round(record["score"], 2))
 ```
 
-Expected result:
+预期结果：
 
 ```text
 1 central_connector 149.4
 2 crosslink 97.4
 ```
 
-## Input Files
+## 输入文件格式
 
-Network and proposal CSV files use this edge-table format:
+网络和候选方案 CSV 使用边表格式：
 
 ```text
 station_i,station_j,travel_time_minutes
 ```
 
-Travel times are converted to capacity with:
+项目会将通行时间转换为容量：
 
 ```text
 capacity = 60 / travel_time_minutes
 ```
 
-Criteria are defined in JSON `.cfile` files. Fixed costs are defined in JSON `.fixed-cost` files. The `examples/` folder contains a complete offline scenario.
+评价指标写在 JSON `.cfile` 文件中，固定成本写在 JSON `.fixed-cost` 文件中。`examples/` 目录包含一个完整的离线示例。
 
-## Project Layout
+## 目录结构
 
 ```text
-tube_planning/        Core package
-  flow.py             Flow representation and safe augmentation
-  networks/           Network and proposal graph models
-  criteria/           Cost and performance scoring
-  evaluation.py       CLI ranking pipeline
-  showcase.py         Offline demonstration entry point
-examples/             Offline dataset for the showcase
-tests/                Pytest suite for algorithms and pipeline behaviour
+tube_planning/        核心代码
+  flow.py             流表示与路径增广
+  networks/           网络和候选方案图模型
+  criteria/           成本与性能评分
+  evaluation.py       CLI 排序流程
+  showcase.py         离线展示入口
+examples/             离线示例数据
+tests/                算法和评估流程测试
 ```
 
-## Test
+## 测试
 
 ```bash
 pytest -q
 ```
 
-Shortcut:
+快捷命令：
 
 ```bash
 make test
