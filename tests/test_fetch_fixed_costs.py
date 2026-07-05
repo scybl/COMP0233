@@ -16,6 +16,10 @@ def test_fetch_fixed_costs_success(mock_query):
 
     result = query.fetch_fixed_costs("2026-05-10")
     assert result == {"new": 100.0, "ext": 200.0, "hire": 30.0, "train": 80.0}
+    mock_query.assert_called_once_with(
+        "proposals/costs",
+        **{"construction-date": "2026-05-10"},
+    )
 
 
 def test_fetch_fixed_costs_invalid_date_format():

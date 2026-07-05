@@ -114,47 +114,32 @@ class CostCriteria(Criteria):
         )
 
         current_size = current.adjacency_matrix.shape[0]
-        new_edge_count_per_node = np.zeros(p_mat.shape[0], dtype=int)
-        num_new_edges = 0
-
-        for i in range(p_mat.shape[0]):
-            for j in range(i + 1, p_mat.shape[1]):
-                if p_mat[i, j] > 0 and c_mat[i, j] == 0:
-                    num_new_edges += 1
-                    new_edge_count_per_node[i] += 1
-                    new_edge_count_per_node[j] += 1
-
-        new_station_count = sum(
-            1
-            for node in range(current_size, p_mat.shape[0])
-            if new_edge_count_per_node[node] > 0
+        new_edge_mask = (p_mat > 0) & (c_mat == 0)
+        new_edge_count_per_node = np.count_nonzero(new_edge_mask, axis=1)
+        num_new_edges = int(np.count_nonzero(np.triu(new_edge_mask, k=1)))
+        new_station_count = int(
+            np.count_nonzero(new_edge_count_per_node[current_size:] > 0)
         )
         max_weight_edge = float(np.max(p_mat)) if p_mat.size else 0.0
 
-        # create new staff and new trains
-        # json maybe not contain these fields, default to 0 if not.
-        staff_cost = 0.0
-        for edge_count in new_edge_count_per_node:
-            if edge_count > 0:
-                staff_cost += c_hire ** math.sqrt(edge_count)
-
-        # calculate costs
         infra_cost = new_station_count * c_new + num_new_edges * c_ext
+        staff_cost = sum(
+            c_hire ** math.sqrt(edge_count)
+            for edge_count in new_edge_count_per_node
+            if edge_count > 0
+        )
         vehic_cost = max_weight_edge * c_train * 24
+        cost_by_type = {
+            "infra": infra_cost,
+            "staff": staff_cost,
+            "vehic": vehic_cost,
+        }
 
-        # choose costs to include
         if "total" in self.costs:
-            total_cost = infra_cost + staff_cost + vehic_cost
+            total_cost = sum(cost_by_type.values())
         else:
-            total_cost = 0
-            if "infra" in self.costs:
-                total_cost += infra_cost
-            if "staff" in self.costs:
-                total_cost += staff_cost
-            if "vehic" in self.costs:
-                total_cost += vehic_cost
+            total_cost = sum(cost_by_type[cost] for cost in self.costs)
 
-        # compute total score
         score = self.budget - total_cost
         return round(score, 2)
 

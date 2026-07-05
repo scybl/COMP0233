@@ -17,7 +17,7 @@ from tube_planning.utils import (
 DEFAULT_TIMEOUT = 10.0
 
 
-def _VALID_SERVICES() -> tuple[str]:
+def _VALID_SERVICES() -> tuple[str, ...]:
     """Return a tuple of strings, corresponding to the web services that
     can be queried.
 
@@ -267,9 +267,7 @@ def fetch_fixed_costs(date):
             "date must be within 2026-01-01 and 2026-12-31 inclusive"
         )
 
-    # Query the web-service. The service expects the parameter name
-    # 'construction-date'.
-    resp = send_query("proposals/costs", **{"date": date})
+    resp = send_query("proposals/costs", **{"construction-date": date})
 
     try:
         data = resp.json()

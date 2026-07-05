@@ -398,13 +398,7 @@ class Network:
         flow_matrix = flow.flow_matrix
         adj_mat = self.adjacency_matrix
 
-        if flow_matrix.shape != adj_mat.shape:
-            return False
-        for i in range(self.n_nodes):
-            for j in range(self.n_nodes):
-                if flow_matrix[i, j] > adj_mat[i, j]:
-                    return False
-        return True
+        return flow_matrix.shape == adj_mat.shape and bool(np.all(flow_matrix <= adj_mat))
 
     def edmonds_karp(self, source: int, sink: int, maxiter: int = 1000) -> Flow:
         """
@@ -612,7 +606,7 @@ class Network:
             validated[node] = value
         return validated
 
-    def _compute_augmented_flow(self, sources_edges: dict, sinks_edges: dict, maxiter):
+    def _compute_augmented_flow(self, source_edges: dict, sink_edges: dict, maxiter):
         """
         Compute flow on an augmented network using Edmonds-Karp.
 
@@ -624,10 +618,10 @@ class Network:
 
         Parameters
         ----------
-        sources_edges : dict
+        source_edges : dict
             Mapping of source node indices to capacities from the super-source
             (i.e. edges of the form super_source → node).
-        sinks_edges : dict
+        sink_edges : dict
             Mapping of sink node indices to capacities to the super-sink
             (i.e. edges of the form node → super_sink).
         maxiter : int or None
@@ -653,30 +647,21 @@ class Network:
         - Downstream methods typically discard these extra nodes when
           constructing the final flow on the original network.
         """
-        # Initialize
         n = self.n_nodes
         adj = self.adjacency_matrix
-
-        # create super source and super sink
         super_source = n
         super_sink = n + 1
 
-        # build new adjacency matrix
         new_adj = np.zeros((n + 2, n + 2), dtype=float)
         new_adj[:n, :n] = adj
 
-        # add super edges
-        for s, cap in sources_edges.items():
-            new_adj[super_source, s] = cap
-        for t, cap in sinks_edges.items():
-            new_adj[t, super_sink] = cap
+        for source, capacity in source_edges.items():
+            new_adj[super_source, source] = capacity
+        for sink, capacity in sink_edges.items():
+            new_adj[sink, super_sink] = capacity
 
-        # run Edmonds-Karp on extended network
-        net2 = Network(adj_mat=new_adj)
+        augmented_network = Network(adj_mat=new_adj)
         if maxiter is None:
-            flow_ext = net2.edmonds_karp(super_source, super_sink)
-        else:
-            flow_ext = net2.edmonds_karp(super_source, super_sink, maxiter)
+            return augmented_network.edmonds_karp(super_source, super_sink)
 
-        # return full extended flow
-        return flow_ext
+        return augmented_network.edmonds_karp(super_source, super_sink, maxiter)
