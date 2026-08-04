@@ -14,6 +14,20 @@ The package can be used in three ways: a one-command offline showcase, a CLI tha
 
 ## Quick Start
 
+One-command local setup:
+
+```bash
+bash scripts/setup_env.sh
+```
+
+Run the offline showcase:
+
+```bash
+bash scripts/run_demo.sh
+```
+
+Manual setup is also available:
+
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
@@ -168,3 +182,10 @@ Shortcut:
 ```bash
 make test
 ```
+
+## Showcase Summary
+
+| Proposal | Score | Essential criteria | Interpretation |
+| --- | ---: | --- | --- |
+| `central_connector` | 149.40 | pass | Best bundled extension under the cost and flow criteria |
+| `crosslink` | 97.40 | pass | Valid extension, but lower overall flow benefit |
