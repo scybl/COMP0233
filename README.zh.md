@@ -1,8 +1,18 @@
-# Tube Planning
+# TubePlanner
 
 [English Version](README.md)
 
-Tube Planning 是一个用于评估公共交通线路扩展方案的 Python 项目。项目从 CSV 边表中读取基准网络和候选扩展方案，将通行时间转换为图容量，根据成本和网络流指标对每个方案进行评估，并输出可复现的排序结果。
+TubePlanner 是一个用于评估公共交通线路扩展方案的 Python 项目。项目从 CSV 边表中读取基准网络和候选扩展方案，将通行时间转换为图容量，根据成本和网络流指标对每个方案进行评估，并输出可复现的排序结果。
+
+## 快速上手索引
+
+| 目标 | 入口 |
+| --- | --- |
+| 一键配置环境 | `bash scripts/setup_env.sh` |
+| 离线展示 | `bash scripts/run_demo.sh` |
+| 复用共享 conda 环境 | `conda run -n codex_python bash scripts/run_demo.sh` |
+| CLI 排序示例 | `python -m tube_planning.evaluation --network-file examples/baseline_network.csv --format csv examples/costs.fixed-cost examples/criteria.cfile "examples/proposals/*.csv"` |
+| 运行测试 | `pytest` |
 
 ## 功能说明
 

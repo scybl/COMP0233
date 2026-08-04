@@ -1,8 +1,18 @@
-# Tube Planning
+# TubePlanner
 
 [中文版本](README.zh.md)
 
-Tube Planning is a Python project for evaluating public-transport network extension proposals. It reads a baseline network and one or more candidate extensions from CSV edge tables, converts travel-time data into graph capacity, evaluates each proposal against cost and flow criteria, and returns a deterministic ranking.
+TubePlanner is a Python project for evaluating public-transport network extension proposals. It reads a baseline network and one or more candidate extensions from CSV edge tables, converts travel-time data into graph capacity, evaluates each proposal against cost and flow criteria, and returns a deterministic ranking.
+
+## Quick Start Index
+
+| Need | Start here |
+| --- | --- |
+| One-command setup | `bash scripts/setup_env.sh` |
+| Offline showcase | `bash scripts/run_demo.sh` |
+| Shared conda run | `conda run -n codex_python bash scripts/run_demo.sh` |
+| CLI ranking example | `python -m tube_planning.evaluation --network-file examples/baseline_network.csv --format csv examples/costs.fixed-cost examples/criteria.cfile "examples/proposals/*.csv"` |
+| Test suite | `pytest` |
 
 ## Functionality
 
