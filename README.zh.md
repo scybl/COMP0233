@@ -14,6 +14,21 @@ Tube Planning 是一个用于评估公共交通线路扩展方案的 Python 项�
 
 ## 安装与启动
 
+一键安装并运行离线展示：
+
+```bash
+bash scripts/setup_env.sh
+bash scripts/run_demo.sh
+```
+
+如果已经有共享 conda 环境，可以直接复用：
+
+```bash
+conda run -n codex_python bash scripts/run_demo.sh
+```
+
+也可以手动安装：
+
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate

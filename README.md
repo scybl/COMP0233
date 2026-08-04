@@ -26,6 +26,12 @@ Run the offline showcase:
 bash scripts/run_demo.sh
 ```
 
+To reuse an already-active conda environment, run the same scripts through that environment:
+
+```bash
+conda run -n codex_python bash scripts/run_demo.sh
+```
+
 Manual setup is also available:
 
 ```bash
