@@ -1,48 +1,43 @@
 # TubePlanner
 
-[中文版本](README.zh.md)
+[English Version](README_en.md)
 
-TubePlanner is a Python project for evaluating public-transport network extension proposals. It reads a baseline network and one or more candidate extensions from CSV edge tables, converts travel-time data into graph capacity, evaluates each proposal against cost and flow criteria, and returns a deterministic ranking.
+TubePlanner 是一个用于评估公共交通线路扩展方案的 Python 项目。项目从 CSV 边表中读取基准网络和候选扩展方案，将通行时间转换为图容量，根据成本和网络流指标对每个方案进行评估，并输出可复现的排序结果。
 
-## Quick Start Index
+## 快速上手索引
 
-| Need | Start here |
+| 目标 | 入口 |
 | --- | --- |
-| One-command setup | `bash scripts/setup_env.sh` |
-| Offline showcase | `bash scripts/run_demo.sh` |
-| Shared conda run | `conda run -n codex_python bash scripts/run_demo.sh` |
-| CLI ranking example | `python -m tube_planning.evaluation --network-file examples/baseline_network.csv --format csv examples/costs.fixed-cost examples/criteria.cfile "examples/proposals/*.csv"` |
-| Test suite | `pytest` |
+| 一键配置环境 | `bash scripts/setup_env.sh` |
+| 离线展示 | `bash scripts/run_demo.sh` |
+| 复用共享 conda 环境 | `conda run -n codex_python bash scripts/run_demo.sh` |
+| CLI 排序示例 | `python -m tube_planning.evaluation --network-file examples/baseline_network.csv --format csv examples/costs.fixed-cost examples/criteria.cfile "examples/proposals/*.csv"` |
+| 运行测试 | `pytest` |
 
-## Functionality
+## 功能说明
 
-The project models a transport network as an adjacency matrix, where each station is a node and each connection is an edge. Candidate proposals are represented as additional edge tables and can be merged with the baseline network for evaluation.
+项目将交通网络表示为邻接矩阵，其中站点是节点，线路连接是边。候选扩展方案以额外的边表表示，评估时会与基准网络合并，形成新的候选网络。
 
-The evaluation pipeline combines two kinds of criteria. Cost criteria use fixed infrastructure and operating-cost assumptions to check whether a proposal stays within a planning budget. Performance criteria use breadth-first search and Edmonds-Karp maximum flow to estimate how much capacity a proposal adds between selected source and sink stations, including multi-source, multi-sink, and sufficient-flow scenarios.
+评估流程结合两类指标。成本指标根据固定的建设和运营成本配置，判断方案是否满足预算约束。性能指标使用 BFS 和 Edmonds-Karp 最大流算法，计算候选方案在指定源点和汇点之间带来的容量变化，并支持多源点、多汇点以及充足流场景。
 
-The package can be used in three ways: a one-command offline showcase, a CLI that ranks proposal files and outputs text/CSV/JSON, and a Python API for integrating the network and scoring logic into other scripts.
+项目提供三种使用方式：一键运行的离线展示、可输出 text/CSV/JSON 的命令行评估工具，以及可以在其他脚本中直接调用的 Python API。
 
-## Quick Start
+## 安装与启动
 
-One-command local setup:
+一键安装并运行离线展示：
 
 ```bash
 bash scripts/setup_env.sh
-```
-
-Run the offline showcase:
-
-```bash
 bash scripts/run_demo.sh
 ```
 
-To reuse an already-active conda environment, run the same scripts through that environment:
+如果已经有共享 conda 环境，可以直接复用：
 
 ```bash
 conda run -n codex_python bash scripts/run_demo.sh
 ```
 
-Manual setup is also available:
+也可以手动安装：
 
 ```bash
 python3 -m venv .venv
@@ -51,19 +46,19 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
-Run the one-command showcase:
+运行一键展示：
 
 ```bash
 python -m tube_planning.showcase
 ```
 
-Or use the project shortcut:
+也可以使用项目快捷命令：
 
 ```bash
 make demo
 ```
 
-Expected output:
+示例输出：
 
 ```text
 Tube Planning Showcase
@@ -77,21 +72,21 @@ Rank  Proposal                   Score  Essential
 2     crosslink                  97.40  pass
 ```
 
-After installation, the same showcase is also available as:
+安装后也可以直接运行：
 
 ```bash
 tube-planning-showcase
 ```
 
-## CLI Usage
+## 命令行调用
 
-Run the bundled example through the CLI:
+使用内置离线示例运行完整评估：
 
 ```bash
 python -m tube_planning.evaluation --network-file examples/baseline_network.csv --format csv examples/costs.fixed-cost examples/criteria.cfile "examples/proposals/*.csv"
 ```
 
-Output:
+输出：
 
 ```csv
 rank,proposal,score,essential_passed
@@ -99,27 +94,27 @@ rank,proposal,score,essential_passed
 2,crosslink,97.40,True
 ```
 
-Installed CLI form:
+已安装命令行版本：
 
 ```bash
 evaluate-proposals --network-file examples/baseline_network.csv --format json examples/costs.fixed-cost examples/criteria.cfile "examples/proposals/*.csv"
 ```
 
-Useful options:
+常用参数：
 
-- `--network-file PATH`: use a local baseline network CSV.
-- `--format {text,csv,json}`: choose the output format.
-- `-o, --output-file PATH`: write rankings to a file.
+- `--network-file PATH`：指定本地基准网络 CSV。
+- `--format {text,csv,json}`：指定输出格式。
+- `-o, --output-file PATH`：将排序结果写入文件。
 
-The bundled CLI scenario can also be run with:
+内置 CLI 场景也可以用快捷命令运行：
 
 ```bash
 make cli
 ```
 
-## Python API Example
+## Python 代码调用示例
 
-This example evaluates the bundled proposals programmatically:
+下面的代码会读取 `examples/` 中的基准网络、成本配置、指标配置和两个候选方案，并输出排序结果：
 
 ```python
 from pathlib import Path
@@ -151,57 +146,50 @@ for rank, record in enumerate(ranked, start=1):
     print(rank, record["proposal"].name, round(record["score"], 2))
 ```
 
-Expected result:
+预期结果：
 
 ```text
 1 central_connector 149.4
 2 crosslink 97.4
 ```
 
-## Input Files
+## 输入文件格式
 
-Network and proposal CSV files use this edge-table format:
+网络和候选方案 CSV 使用边表格式：
 
 ```text
 station_i,station_j,travel_time_minutes
 ```
 
-Travel times are converted to capacity with:
+项目会将通行时间转换为容量：
 
 ```text
 capacity = 60 / travel_time_minutes
 ```
 
-Criteria are defined in JSON `.cfile` files. Fixed costs are defined in JSON `.fixed-cost` files. The `examples/` folder contains a complete offline scenario.
+评价指标写在 JSON `.cfile` 文件中，固定成本写在 JSON `.fixed-cost` 文件中。`examples/` 目录包含一个完整的离线示例。
 
-## Project Layout
+## 目录结构
 
 ```text
-tube_planning/        Core package
-  flow.py             Flow representation and safe augmentation
-  networks/           Network and proposal graph models
-  criteria/           Cost and performance scoring
-  evaluation.py       CLI ranking pipeline
-  showcase.py         Offline demonstration entry point
-examples/             Offline dataset for the showcase
-tests/                Pytest suite for algorithms and pipeline behaviour
+tube_planning/        核心代码
+  flow.py             流表示与路径增广
+  networks/           网络和候选方案图模型
+  criteria/           成本与性能评分
+  evaluation.py       CLI 排序流程
+  showcase.py         离线展示入口
+examples/             离线示例数据
+tests/                算法和评估流程测试
 ```
 
-## Test
+## 测试
 
 ```bash
 pytest -q
 ```
 
-Shortcut:
+快捷命令：
 
 ```bash
 make test
 ```
-
-## Showcase Summary
-
-| Proposal | Score | Essential criteria | Interpretation |
-| --- | ---: | --- | --- |
-| `central_connector` | 149.40 | pass | Best bundled extension under the cost and flow criteria |
-| `crosslink` | 97.40 | pass | Valid extension, but lower overall flow benefit |

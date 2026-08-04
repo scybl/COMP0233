@@ -1,58 +1,46 @@
-# Examples
+# 示例数据
 
-This folder contains a complete offline scenario for evaluating transport network extension proposals. It is designed to run without any external API or live transport data.
+[English](README_en.md)
 
-## Scenario
+这个目录提供了一个完整的离线示例，用于展示如何评估公共交通线路扩展方案。示例不依赖外部 API 或实时交通数据。
 
-The baseline network has six stations connected by six existing links. The task is to rank two candidate extensions using a mix of infrastructure cost, operating cost, and cross-city flow capacity.
+## 场景
 
-Candidate proposals:
+基准网络包含 6 个站点和 6 条既有连接。目标是在两个候选扩展方案之间排序，综合考虑建设成本、运营成本和跨城流量能力。
 
-- `central_connector`: adds two short internal links, improving route choices through the middle of the network.
-- `crosslink`: adds an end-to-end shortcut plus one local link, improving connectivity but with a lower weighted score in this scenario.
+候选方案：
 
-Expected ranking:
+- `central_connector`：增加两条较短的内部连接，改善网络中部的路径选择。
+- `crosslink`：增加端到端捷径和一条局部连接，在本示例中的综合得分较低。
+
+期望排序：
 
 ```text
 1 central_connector 149.40
 2 crosslink          97.40
 ```
 
-## Files
+## 文件
 
-- `baseline_network.csv`: current network as an edge table.
-- `proposals/*.csv`: candidate extension edge tables.
-- `criteria.cfile`: essential and desirable evaluation criteria.
-- `costs.fixed-cost`: fixed infrastructure and operating cost assumptions.
+- `baseline_network.csv`：当前网络边表。
+- `proposals/*.csv`：候选扩展方案边表。
+- `criteria.cfile`：必要和期望评估指标。
+- `costs.fixed-cost`：固定建设和运营成本配置。
 
-## Run
+## 运行
 
 ```bash
 make demo
 ```
 
-Run the same data directly through the CLI:
+也可以直接运行 CLI 示例：
 
 ```bash
 make cli
 ```
 
-Equivalent Python module command:
+等价的 Python 模块命令：
 
 ```bash
 python -m tube_planning.evaluation --network-file examples/baseline_network.csv --format csv examples/costs.fixed-cost examples/criteria.cfile "examples/proposals/*.csv"
-```
-
-## CSV Format
-
-Network and proposal files use the edge-table format:
-
-```text
-station_i,station_j,travel_time_minutes
-```
-
-Travel times are converted to capacity as:
-
-```text
-capacity = 60 / travel_time_minutes
 ```
