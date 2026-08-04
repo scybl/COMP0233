@@ -6,6 +6,13 @@ PYTHON_BIN="${PYTHON_BIN:-python3}"
 
 cd "$ROOT"
 
+"$PYTHON_BIN" - <<'PY'
+import sys
+
+if sys.version_info < (3, 10):
+    raise SystemExit("Python 3.10 or newer is required.")
+PY
+
 if [[ ! -d .venv ]]; then
   "$PYTHON_BIN" -m venv .venv
 fi
