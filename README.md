@@ -4,6 +4,20 @@
 
 TubePlanner 是一个用于评估公共交通线路扩展方案的 Python 项目。项目从 CSV 边表中读取基准网络和候选扩展方案，将通行时间转换为图容量，根据成本和网络流指标对每个方案进行评估，并输出可复现的排序结果。
 
+![TubePlanner 排序结果预览](docs/images/showcase-preview.svg)
+
+## 简历亮点
+
+- 使用图建模、BFS 和 Edmonds-Karp 最大流算法评估交通扩展方案的容量收益。
+- 将成本约束、必要条件和期望条件封装为可配置评分流程，支持 text/CSV/JSON 输出。
+- 提供 CLI、Python API、离线 demo 和完整 pytest 覆盖，适合作为 Python 工程与算法能力展示。
+
+## 复现边界
+
+- 仓库内置 `examples/` 离线数据，clone 后无需外部 API 即可运行 demo 和测试。
+- 线上交通数据查询相关逻辑保留在代码中，但 README 默认展示路径使用可复现的本地 CSV 示例。
+- GitHub Actions 会运行 lint 与测试，用于验证项目基础质量。
+
 ## 快速上手索引
 
 | 目标 | 入口 |

@@ -4,6 +4,20 @@
 
 TubePlanner is a Python project for evaluating public-transport network extension proposals. It reads a baseline network and one or more candidate extensions from CSV edge tables, converts travel-time data into graph capacity, evaluates each proposal against cost and flow criteria, and returns a deterministic ranking.
 
+![TubePlanner ranking preview](docs/images/showcase-preview.svg)
+
+## Resume Highlights
+
+- Uses graph modelling, BFS, and Edmonds-Karp maximum flow to evaluate the capacity benefit of transport extension proposals.
+- Packages cost constraints, essential criteria, and desirable criteria into a configurable scoring workflow with text/CSV/JSON output.
+- Provides a CLI, Python API, offline demo, and pytest coverage for a concise algorithms-and-engineering showcase.
+
+## Reproducibility Boundaries
+
+- The repository includes offline data in `examples/`, so the demo and tests run without external APIs.
+- Live transport-query logic remains available in the code, while the README path focuses on deterministic local CSV examples.
+- GitHub Actions runs lint and tests to verify baseline project quality.
+
 ## Quick Start Index
 
 | Need | Start here |
