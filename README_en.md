@@ -2,9 +2,9 @@
 
 [中文](README.md)
 
-TubePlanner evaluates public-transport network extension proposals. It reads a baseline network and candidate extensions from CSV edge tables, then ranks proposals using cost constraints and maximum-flow metrics.
+TubePlanner is a public-transport line planning and evaluation tool built around TfL network data. It uses a local snapshot from the UCL RSE Tube Planning Web Service, converts London Underground, light rail, and related rail connections into a weighted graph, and converts station-to-station travel times into network capacity.
 
-![TubePlanner ranking preview](docs/images/showcase-preview.svg)
+The project compares how candidate line extensions affect route choice and cross-city transport capacity. Given a baseline network, candidate proposals, cost configuration, and scoring criteria, it computes maximum-flow gains and delivery-cost performance, then produces reproducible proposal rankings.
 
 ## Features
 
@@ -21,6 +21,7 @@ TubePlanner evaluates public-transport network extension proposals. It reads a b
 | Candidate proposals | 7 |
 | Cost date | 2026-07-01 |
 | Top proposal | `thameslink` |
+| Output file | `data/ucl_snapshot/results/ranking_2026-07-01.csv` |
 
 Sample output:
 
@@ -94,7 +95,6 @@ examples/             Example data
 examples/results/     Small example output files
 tests/                Tests
 scripts/              Setup and run scripts
-docs/images/          README result image
 ```
 
 ## Tests

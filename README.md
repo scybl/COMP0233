@@ -2,9 +2,9 @@
 
 [English](README_en.md)
 
-TubePlanner 是一个公共交通网络扩展评估工具。它从 CSV 边表读取基准网络和候选扩展方案，结合成本约束与最大流指标，对方案进行排序。
+TubePlanner 是一个基于 TfL 网络数据的公共交通线路规划评估工具。项目使用 UCL RSE Tube Planning Web Service 的本地快照，将伦敦地铁、轻轨和相关轨道交通站点连接转换为带权图，并把站间通行时间换算为网络容量。
 
-![TubePlanner 排序结果预览](docs/images/showcase-preview.svg)
+它用于比较候选线路扩展方案对乘坐路径选择和跨区域通行能力的影响：给定基准网络、候选扩展方案、成本配置和评价条件后，程序会计算每个方案的最大流收益与成本表现，并输出可复现的排序结果。
 
 ## 功能说明
 
@@ -21,6 +21,7 @@ TubePlanner 是一个公共交通网络扩展评估工具。它从 CSV 边表读
 | 候选方案 | 7 个 |
 | 成本日期 | 2026-07-01 |
 | 排名第一方案 | `thameslink` |
+| 输出文件 | `data/ucl_snapshot/results/ranking_2026-07-01.csv` |
 
 示例输出：
 
@@ -94,7 +95,6 @@ examples/             示例数据
 examples/results/     小型示例输出样例
 tests/                测试
 scripts/              环境配置和运行脚本
-docs/images/          README 结果图
 ```
 
 ## 测试
