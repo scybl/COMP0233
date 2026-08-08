@@ -6,6 +6,15 @@ TubePlanner is a Python project for evaluating public-transport network extensio
 
 ![TubePlanner ranking preview](docs/images/showcase-preview.svg)
 
+## Result Showcase
+
+| Showcase item | Current result | Notes |
+| --- | ---: | --- |
+| Example network size | 6 stations / 6 links | Bundled CSV data, reproducible offline |
+| Top-ranked proposal | `central_connector` | Best under cost and max-flow criteria |
+| Top proposal score | 149.40 | Deterministic output from `bash scripts/run_demo.sh` |
+| Output formats | text / CSV / JSON | Useful for CLI demos and downstream analysis |
+
 ## Resume Highlights
 
 - Uses graph modelling, BFS, and Edmonds-Karp maximum flow to evaluate the capacity benefit of transport extension proposals.
