@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
   <title id="title">TubePlanner proposal ranking showcase</title>
-  <desc id="desc">A polished README preview showing transport graph scoring, proposal rankings, and reproducible CLI output.</desc>
+  <desc id="desc">A README preview showing the cached UCL Tube Planning snapshot, proposal rankings, and reproducible CLI output.</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#0f172a"/>
@@ -18,23 +18,23 @@
   <text x="96" y="104" fill="#ffffff" font-family="Arial, sans-serif" font-size="43" font-weight="700">TubePlanner</text>
   <text x="96" y="141" fill="#bfdbfe" font-family="Arial, sans-serif" font-size="18">Public-transport extension ranking with cost constraints and max-flow scoring</text>
   <rect x="884" y="82" width="212" height="44" rx="22" fill="#14b8a6"/>
-  <text x="918" y="110" fill="#ffffff" font-family="Arial, sans-serif" font-size="15" font-weight="700">Reproducible CLI Demo</text>
+  <text x="920" y="110" fill="#ffffff" font-family="Arial, sans-serif" font-size="15" font-weight="700">Local Snapshot Demo</text>
 
   <g font-family="Arial, sans-serif">
     <rect x="96" y="210" width="226" height="116" rx="18" fill="#ffffff" stroke="#dbeafe"/>
-    <text x="122" y="250" fill="#64748b" font-size="15">Example network</text>
-    <text x="122" y="287" fill="#0f172a" font-size="34" font-weight="700">6 / 6</text>
+    <text x="122" y="250" fill="#64748b" font-size="15">UCL snapshot</text>
+    <text x="122" y="287" fill="#0f172a" font-size="34" font-weight="700">446 / 535</text>
     <text x="122" y="313" fill="#475569" font-size="14">stations / links</text>
 
     <rect x="350" y="210" width="226" height="116" rx="18" fill="#ffffff" stroke="#dcfce7"/>
     <text x="376" y="250" fill="#64748b" font-size="15">Best proposal</text>
-    <text x="376" y="287" fill="#047857" font-size="29" font-weight="700">149.40</text>
-    <text x="376" y="313" fill="#475569" font-size="14">central_connector</text>
+    <text x="376" y="287" fill="#047857" font-size="29" font-weight="700">223.32</text>
+    <text x="376" y="313" fill="#475569" font-size="14">thameslink</text>
 
     <rect x="604" y="210" width="226" height="116" rx="18" fill="#ffffff" stroke="#fef3c7"/>
-    <text x="630" y="250" fill="#64748b" font-size="15">Criteria</text>
-    <text x="630" y="287" fill="#92400e" font-size="30" font-weight="700">pass</text>
-    <text x="630" y="313" fill="#475569" font-size="14">essential constraints</text>
+    <text x="630" y="250" fill="#64748b" font-size="15">Cost date</text>
+    <text x="630" y="287" fill="#92400e" font-size="30" font-weight="700">2026</text>
+    <text x="630" y="313" fill="#475569" font-size="14">July 1 snapshot run</text>
 
     <rect x="858" y="210" width="238" height="116" rx="18" fill="#ffffff" stroke="#fce7f3"/>
     <text x="884" y="250" fill="#64748b" font-size="15">Outputs</text>
@@ -48,9 +48,9 @@
     <circle cx="54" cy="30" r="7" fill="#fbbf24"/>
     <circle cx="78" cy="30" r="7" fill="#34d399"/>
     <text x="30" y="72" fill="#93c5fd" font-family="Menlo, Consolas, monospace" font-size="15">Rank  Proposal             Score</text>
-    <text x="30" y="106" fill="#ffffff" font-family="Menlo, Consolas, monospace" font-size="15">1     central_connector   149.40</text>
-    <text x="30" y="138" fill="#e2e8f0" font-family="Menlo, Consolas, monospace" font-size="15">2     crosslink            97.40</text>
-    <text x="30" y="168" fill="#a7f3d0" font-family="Menlo, Consolas, monospace" font-size="14">bash scripts/run_demo.sh</text>
+    <text x="30" y="106" fill="#ffffff" font-family="Menlo, Consolas, monospace" font-size="15">1     thameslink        223.32</text>
+    <text x="30" y="138" fill="#e2e8f0" font-family="Menlo, Consolas, monospace" font-size="15">2     weaving_cross     198.75</text>
+    <text x="30" y="168" fill="#a7f3d0" font-family="Menlo, Consolas, monospace" font-size="14">bash scripts/run_ucl_snapshot.sh</text>
   </g>
 
   <g transform="translate(594 368)">

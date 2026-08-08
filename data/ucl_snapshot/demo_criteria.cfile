@@ -1,0 +1,31 @@
+{
+  "desirable": [
+    {
+      "description": "Increase capacity between major terminals and Bloomsbury stations",
+      "sinks": [
+        88,
+        89,
+        144,
+        218,
+        269
+      ],
+      "sources": [
+        48,
+        155,
+        156,
+        189,
+        271
+      ],
+      "weight": 3.0
+    },
+    {
+      "budget": 5000,
+      "costs": [
+        "total"
+      ],
+      "description": "Prefer proposals with lower total delivery cost",
+      "weight": 0.03
+    }
+  ],
+  "essential": []
+}

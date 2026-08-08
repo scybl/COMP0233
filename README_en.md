@@ -17,37 +17,43 @@ TubePlanner evaluates public-transport network extension proposals. It reads a b
 
 | Item | Result |
 | --- | --- |
-| Example network | 6 stations, 6 links |
-| Top proposal | `central_connector` |
-| Proposal score | 149.40 |
-| Essential criteria | pass |
+| UCL snapshot network | 446 stations, 535 equivalent links |
+| Candidate proposals | 7 |
+| Cost date | 2026-07-01 |
+| Top proposal | `thameslink` |
 
 Sample output:
 
-```text
-Rank  Proposal                   Score  Essential
-----------------------------------------------------
-1     central_connector         149.40  pass
-2     crosslink                  97.40  pass
+```csv
+rank,proposal,score,essential_passed
+1,thameslink,223.32,True
+2,weaving_cross,198.75,True
+3,holborn_star,197.84,True
 ```
 
 ## Quick Start
 
 ```bash
 bash scripts/setup_env.sh
-bash scripts/run_demo.sh
+bash scripts/run_ucl_snapshot.sh
 ```
 
 Reuse an existing conda environment:
 
 ```bash
-conda run -n codex_python bash scripts/run_demo.sh
+conda run -n codex_python bash scripts/run_ucl_snapshot.sh
 ```
 
-Run the CLI:
+Run the small offline example:
 
 ```bash
-python -m tube_planning.evaluation --network-file examples/baseline_network.csv --format csv examples/costs.fixed-cost examples/criteria.cfile "examples/proposals/*.csv"
+bash scripts/run_demo.sh
+```
+
+Run the UCL snapshot CLI directly:
+
+```bash
+python -m tube_planning.evaluation --network-file data/ucl_snapshot/baseline_network.csv --format csv data/ucl_snapshot/costs/2026-07-01.fixed-cost data/ucl_snapshot/demo_criteria.cfile "data/ucl_snapshot/proposals/*.csv"
 ```
 
 ## Requirements
@@ -57,14 +63,17 @@ python -m tube_planning.evaluation --network-file examples/baseline_network.csv 
 
 ## Data Notes
 
-- `examples/baseline_network.csv` is the baseline network.
-- `examples/proposals/` contains candidate extensions.
-- `examples/costs.fixed-cost` and `examples/criteria.cfile` contain cost and scoring configuration.
+- `data/ucl_snapshot/` is a local snapshot from the UCL RSE Tube Planning Web Service.
+- The snapshot includes lines, station indices, candidate proposals, and 2026 cost data; the service states that it combines 2017 data with newer TfL API-derived sources, and that candidate proposals are simulated.
+- `examples/` is a small synthetic example that does not depend on external services.
+- To refresh the snapshot, run `python scripts/cache_ucl_snapshot.py`.
+- For live mode, set `TUBE_PLANNING_WEB_SERVICE` and use `--live-costings` or `--routes`.
 
 ## Project Layout
 
 ```text
 tube_planning/        Core package
+data/ucl_snapshot/    Local UCL service snapshot
 examples/             Example data
 tests/                Tests
 scripts/              Setup and run scripts

@@ -1,0 +1,36 @@
+{
+  "lines": {
+    "0": "bakerloo",
+    "1": "central",
+    "10": "waterloo & city",
+    "11": "docklands light railway",
+    "12": "tfl tram",
+    "13": "elizabeth",
+    "14": "liberty",
+    "15": "lioness",
+    "16": "mildmay",
+    "17": "suffragette",
+    "18": "weaver",
+    "19": "windrush",
+    "2": "circle",
+    "20": "walking",
+    "3": "district",
+    "4": "hammersmith & city",
+    "5": "jubilee",
+    "6": "metropolitan",
+    "7": "northern",
+    "8": "piccadilly",
+    "9": "victoria"
+  },
+  "n_lines": 21,
+  "n_stations": 446,
+  "proposal names": [
+    "goodrum",
+    "holborn star",
+    "national hyperrail",
+    "outer city railway",
+    "south london railway",
+    "thameslink",
+    "weaving cross"
+  ]
+}

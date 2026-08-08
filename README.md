@@ -17,37 +17,43 @@ TubePlanner 是一个公共交通网络扩展评估工具。它从 CSV 边表读
 
 | 项目 | 结果 |
 | --- | --- |
-| 示例网络 | 6 个站点，6 条连接 |
-| 排名第一方案 | `central_connector` |
-| 方案得分 | 149.40 |
-| 必要条件 | pass |
+| UCL 快照网络 | 446 个站点，535 条等价连接 |
+| 候选方案 | 7 个 |
+| 成本日期 | 2026-07-01 |
+| 排名第一方案 | `thameslink` |
 
 示例输出：
 
-```text
-Rank  Proposal                   Score  Essential
-----------------------------------------------------
-1     central_connector         149.40  pass
-2     crosslink                  97.40  pass
+```csv
+rank,proposal,score,essential_passed
+1,thameslink,223.32,True
+2,weaving_cross,198.75,True
+3,holborn_star,197.84,True
 ```
 
 ## 快速上手
 
 ```bash
 bash scripts/setup_env.sh
-bash scripts/run_demo.sh
+bash scripts/run_ucl_snapshot.sh
 ```
 
 复用已有 conda 环境：
 
 ```bash
-conda run -n codex_python bash scripts/run_demo.sh
+conda run -n codex_python bash scripts/run_ucl_snapshot.sh
 ```
 
-运行 CLI：
+运行小型离线示例：
 
 ```bash
-python -m tube_planning.evaluation --network-file examples/baseline_network.csv --format csv examples/costs.fixed-cost examples/criteria.cfile "examples/proposals/*.csv"
+bash scripts/run_demo.sh
+```
+
+直接运行 UCL 快照 CLI：
+
+```bash
+python -m tube_planning.evaluation --network-file data/ucl_snapshot/baseline_network.csv --format csv data/ucl_snapshot/costs/2026-07-01.fixed-cost data/ucl_snapshot/demo_criteria.cfile "data/ucl_snapshot/proposals/*.csv"
 ```
 
 ## 环境要求
@@ -57,14 +63,17 @@ python -m tube_planning.evaluation --network-file examples/baseline_network.csv 
 
 ## 数据说明
 
-- `examples/baseline_network.csv` 是基准网络。
-- `examples/proposals/` 存放候选扩展方案。
-- `examples/costs.fixed-cost` 和 `examples/criteria.cfile` 存放成本与评价配置。
+- `data/ucl_snapshot/` 是 UCL RSE Tube Planning Web Service 的本地快照。
+- 快照包含线路、站点索引、候选方案和 2026 年成本表；服务说明称其结合了 2017 年数据和较新的 TfL API 衍生来源，候选扩展方案为模拟方案。
+- `examples/` 是不依赖外部服务的小型合成示例。
+- 如需刷新快照，运行 `python scripts/cache_ucl_snapshot.py`。
+- 如需联网模式，设置 `TUBE_PLANNING_WEB_SERVICE`，并使用 `--live-costings` 或 `--routes`。
 
 ## 目录结构
 
 ```text
 tube_planning/        核心代码
+data/ucl_snapshot/    UCL 服务本地快照
 examples/             示例数据
 tests/                测试
 scripts/              环境配置和运行脚本

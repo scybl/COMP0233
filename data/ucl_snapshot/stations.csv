@@ -1,0 +1,447 @@
+station index,station name,terminal
+0,Acton town,False
+1,Aldgate,False
+2,Aldgate east,False
+3,All saints,False
+4,Alperton,False
+5,Amersham,False
+6,Angel,False
+7,Archway,False
+8,Arnos grove,False
+9,Arsenal,False
+10,Baker street,False
+11,Balham,False
+12,Bank,False
+13,Barbican,False
+14,Barking,False
+15,Barkingside,False
+16,Barons court,False
+17,Bayswater,False
+18,Beckton,False
+19,Beckton park,False
+20,Becontree,False
+21,Belsize park,False
+22,Bermondsey,False
+23,Bethnal green,False
+24,Blackfriars,False
+25,Blackhorse road,False
+26,Blackwall,False
+27,Bond street,False
+28,Borough,False
+29,Boston manor,False
+30,Bounds green,False
+31,Bow church,False
+32,Bow road,False
+33,Brent cross,False
+34,Brixton,False
+35,Bromley-by-bow,False
+36,Buckhurst hill,False
+37,Burnt oak,False
+38,Caledonian road,False
+39,Camden town,False
+40,Canada water,False
+41,Canary wharf,False
+42,Canning town,False
+43,Cannon street,False
+44,Canons park,False
+45,Chalfont & latimer,False
+46,Chalk farm,False
+47,Chancery lane,False
+48,Charing cross,True
+49,Chesham,False
+50,Chigwell,False
+51,Chiswick park,False
+52,Chorleywood,False
+53,Clapham common,False
+54,Clapham north,False
+55,Clapham south,False
+56,Cockfosters,False
+57,Colindale,False
+58,Colliers wood,False
+59,Covent garden,False
+60,Crossharbour & london arena,False
+61,Croxley,False
+62,Custom house,False
+63,Cutty sark,False
+64,Cyprus,False
+65,Dagenham east,False
+66,Dagenham heathway,False
+67,Debden,False
+68,Deptford bridge,False
+69,Devons road,False
+70,Dollis hill,False
+71,Ealing broadway,False
+72,Ealing common,False
+73,Earl's court,False
+74,Eastcote,False
+75,East acton,False
+76,East finchley,False
+77,East ham,False
+78,East india,False
+79,East putney,False
+80,Edgware,False
+81,Edgware road (b),False
+82,Edgware road (c),False
+83,Elephant & castle,False
+84,Elm park,False
+85,Elverson road,False
+86,Embankment,False
+87,Epping,False
+88,Euston,True
+89,Euston square,False
+90,Fairlop,False
+91,Farringdon,False
+92,Finchley central,False
+93,Finchley road,False
+94,Finsbury park,False
+95,Fulham broadway,False
+96,Gallions reach,False
+97,Gants hill,False
+98,Gloucester road,False
+99,Golders green,False
+100,Goldhawk road,False
+101,Goodge street,False
+102,Grange hill,False
+103,Great portland street,False
+104,Greenford,False
+105,Greenwich,False
+106,Green park,False
+107,Gunnersbury,False
+108,Hainault,False
+109,Hammersmith,False
+110,Hampstead,False
+111,Hanger lane,False
+112,Harlesden,False
+113,Harrow & wealdstone,False
+114,Harrow-on-the-hill,False
+115,Hatton cross,False
+116,"Heathrow terminals 1, 2 & 3",False
+117,Heathrow terminal 4,False
+118,Hendon central,False
+119,Heron quays,False
+120,High barnet,False
+121,High street kensington,False
+122,Highbury & islington,False
+123,Highgate,False
+124,Hillingdon,False
+125,Holborn,False
+126,Holland park,False
+127,Holloway road,False
+128,Hornchurch,False
+129,Hounslow central,False
+130,Hounslow east,False
+131,Hounslow west,False
+132,Hyde park corner,False
+133,Ickenham,False
+134,Island gardens,False
+135,Kennington,False
+136,Kensal green,False
+137,Kensington (olympia),False
+138,Kentish town,False
+139,Kenton,False
+140,Kew gardens,False
+141,Kilburn,False
+142,Kilburn park,False
+143,Kingsbury,False
+144,King's cross st. pancras,True
+145,Knightsbridge,False
+146,Ladbroke grove,False
+147,Lambeth north,False
+148,Lancaster gate,False
+149,Latimer road,False
+150,Leicester square,False
+151,Lewisham,False
+152,Leyton,False
+153,Leytonstone,False
+154,Limehouse,False
+155,Liverpool street,True
+156,London bridge,True
+157,Loughton,False
+158,Maida vale,False
+159,Manor house,False
+160,Mansion house,False
+161,Marble arch,False
+162,Marylebone,True
+163,Mile end,False
+164,Mill hill east,False
+165,Monument,False
+166,Moorgate,True
+167,Moor park,False
+168,Morden,False
+169,Mornington crescent,False
+170,Mudchute,False
+171,Neasden,False
+172,Newbury park,False
+173,Northfields,False
+174,Northolt,False
+175,Northwick park,False
+176,Northwood,False
+177,Northwood hills,False
+178,North acton,False
+179,North ealing,False
+180,North greenwich,False
+181,North harrow,False
+182,North wembley,False
+183,Notting hill gate,False
+184,Oakwood,False
+185,Old street,False
+186,Osterley,False
+187,Oval,False
+188,Oxford circus,False
+189,Paddington,True
+190,Park royal,False
+191,Parsons green,False
+192,Perivale,False
+193,Picadilly circus,False
+194,Pimlico,False
+195,Pinner,False
+196,Plaistow,False
+197,Poplar,False
+198,Preston road,False
+199,Prince regent,False
+200,Pudding mill lane,False
+201,Putney bridge,False
+202,Queen's park,False
+203,Queensbury,False
+204,Queensway,False
+205,Ravenscourt park,False
+206,Rayners lane,False
+207,Redbridge,False
+208,Regent's park,False
+209,Richmond,False
+210,Rickmansworth,False
+211,Roding valley,False
+212,Royal albert,False
+213,Royal oak,False
+214,Royal victoria,False
+215,Ruislip,False
+216,Ruislip gardens,False
+217,Ruislip manor,False
+218,Russell square,False
+219,Seven sisters,False
+220,Shadwell,False
+221,Shepherd's bush (c),False
+222,Shepherd's bush (h),False
+223,Sloane square,False
+224,Snaresbrook,False
+225,Southfields,False
+226,Southgate,False
+227,Southwark,False
+228,South ealing,False
+229,South harrow,False
+230,South kensington,False
+231,South kenton,False
+232,South quay,False
+233,South ruislip,False
+234,South wimbledon,False
+235,South woodford,False
+236,Stamford brook,False
+237,Stanmore,False
+238,Stepney green,False
+239,Stockwell,False
+240,Stonebridge park,False
+241,Stratford,False
+242,St. james's park,False
+243,St. john's wood,False
+244,St. paul's,False
+245,Sudbury hill,False
+246,Sudbury town,False
+247,Swiss cottage,False
+248,Temple,False
+249,Theydon bois,False
+250,Tooting bec,False
+251,Tooting broadway,False
+252,Tottenham court road,False
+253,Tottenham hale,False
+254,Totteridge & whetstone,False
+255,Tower gateway,False
+256,Tower hill,False
+257,Tufnell park,False
+258,Turnham green,False
+259,Turnpike lane,False
+260,Upminster,False
+261,Upminster bridge,False
+262,Upney,False
+263,Upton park,False
+264,Uxbridge,False
+265,Vauxhall,True
+266,Victoria,True
+267,Walthamstow central,False
+268,Wanstead,False
+269,Warren street,False
+270,Warwick avenue,False
+271,Waterloo,True
+272,Watford,False
+273,Wembley central,False
+274,Wembley park,False
+275,Westbourne park,False
+276,Westferry,False
+277,Westminster,False
+278,West acton,False
+279,West brompton,False
+280,West finchley,False
+281,West ham,False
+282,West hampstead,False
+283,West harrow,False
+284,West india quay,False
+285,West kensington,False
+286,West ruislip,False
+287,Whitechapel,False
+288,White city,False
+289,Willesden green,False
+290,Willesden junction,False
+291,Wimbledon,False
+292,Wimbledon park,False
+293,Woodford,False
+294,Woodside park,False
+295,Wood green,False
+296,Nine elms,False
+297,Battersea power station,False
+298,Abbey wood,False
+299,Acton central,False
+300,Acton main line,False
+301,Addington village,False
+302,Addiscombe,False
+303,Ampere way,False
+304,Anerley,False
+305,Arena,False
+306,Avenue road,False
+307,Barking riverside,False
+308,Beckenham junction,False
+309,Beckenham road,False
+310,Beddington lane,False
+311,Belgrave walk,False
+312,Birkbeck,False
+313,Blackhorse lane,False
+314,Brentwood,False
+315,Brockley,False
+316,Brondesbury,False
+317,Brondesbury park,False
+318,Bruce grove,False
+319,Burnham,False
+320,Bush hill park,False
+321,Bushey,False
+322,Caledonian road & barnsbury,False
+323,Cambridge heath,False
+324,Camden road,False
+325,Canonbury,False
+326,Carpenders park,False
+327,Centrale,False
+328,Chadwell heath,False
+329,Cheshunt,False
+330,Chingford,False
+331,Church street,False
+332,Clapham high street,False
+333,Clapham junction,False
+334,Clapton,False
+335,Coombe lane,False
+336,Crouch hill,False
+337,Crystal palace,False
+338,Dalston junction,False
+339,Dalston kingsland,False
+340,Denmark hill,False
+341,Dundonald road,False
+342,East croydon,False
+343,Edmonton green,False
+344,Elmers end,False
+345,Emerson park,False
+346,Enfield town,False
+347,Fieldway,False
+348,Finchley road & frognal,False
+349,Forest gate,False
+350,Forest hill,False
+351,George street,False
+352,Gidea park,False
+353,Goodmayes,False
+354,Gospel oak,False
+355,Gravel hill,False
+356,Hackney central,False
+357,Hackney downs,False
+358,Hackney wick,False
+359,Haggerston,False
+360,Hampstead heath,False
+361,Hanwell,False
+362,Harold wood,False
+363,Harringay green lanes,False
+364,Harrington road,False
+365,Hatch end,False
+366,Hayes & harlington,False
+367,Headstone lane,False
+368,Highams park,False
+369,Homerton,False
+370,Honor oak park,False
+371,Hoxton,False
+372,Ilford,False
+373,Imperial wharf,False
+374,Iver,False
+375,Kennington (olympia),False
+376,Kensal rise,False
+377,Kentish town west,False
+378,Kilburn high road,False
+379,King henry's drive,False
+380,Langley,False
+381,Lebanon road,False
+382,Leyton midland road,False
+383,Leytonstone high road,False
+384,Lloyd park,False
+385,London fields,False
+386,Maidenhead,False
+387,Manor park,False
+388,Maryland,False
+389,Merton park,False
+390,Mitcham,False
+391,Mitcham junction,False
+392,Morden road,False
+393,New addington,False
+394,New cross,False
+395,New cross gate,False
+396,Norwood junction,False
+397,Peckham rye,False
+398,Penge west,False
+399,Phipps bridge,False
+400,Queens road peckham,False
+401,Reading,False
+402,Rectory road,False
+403,Reeves corner,False
+404,Romford,False
+405,Rotherhithe,False
+406,Sandilands,False
+407,Seven kings,False
+408,Shenfield,False
+409,Shepard's bush (c),False
+410,Shoreditch high street,False
+411,Silver street,False
+412,Slough,False
+413,South acton,False
+414,South hampstead,False
+415,South tottenham,False
+416,Southall,False
+417,Southbury,False
+418,St james street,False
+419,Stamford hill,False
+420,Stoke newington,False
+421,Surrey quays,False
+422,Sydenham,False
+423,Taplow,False
+424,Theobalds grove,False
+425,Therapia lane,False
+426,Turkey street,False
+427,Twyford,False
+428,Upper holloway,False
+429,Waddon marsh,False
+430,Walthamstow queen's road,False
+431,Wandle park,False
+432,Wandsworth road,False
+433,Wanstead park,False
+434,Wapping,False
+435,Watford high street,False
+436,Watford junction,False
+437,Wellesley road,False
+438,West croydon,False
+439,West drayton,False
+440,West ealing,False
+441,White hart lane,False
+442,Wood street,False
+443,Woodgrange park,False
+444,Woodside,False
+445,Woolwich,False

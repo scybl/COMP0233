@@ -1,0 +1,25 @@
+{
+  "demo": {
+    "costs": "costs/2026-07-01.fixed-cost",
+    "criteria": "demo_criteria.cfile",
+    "network": "baseline_network.csv",
+    "proposals": {
+      "goodrum": "proposals/goodrum.csv",
+      "holborn star": "proposals/holborn_star.csv",
+      "national hyperrail": "proposals/national_hyperrail.csv",
+      "outer city railway": "proposals/outer_city_railway.csv",
+      "south london railway": "proposals/south_london_railway.csv",
+      "thameslink": "proposals/thameslink.csv",
+      "weaving cross": "proposals/weaving_cross.csv"
+    }
+  },
+  "snapshot_contents": {
+    "baseline_edges": 535,
+    "cost_dates": 365,
+    "lines": 21,
+    "proposals": 7,
+    "stations": 446
+  },
+  "source": "https://rse-with-python.arc.ucl.ac.uk/tube-planning",
+  "source_note": "UCL RSE Tube Planning service; combines 2017 data with more recent TfL API-derived sources and includes made-up expansion proposals."
+}
