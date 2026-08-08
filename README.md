@@ -6,7 +6,7 @@ TubePlanner 是一个用于评估公共交通线路扩展方案的 Python 项目
 
 ![TubePlanner 排序结果预览](docs/images/showcase-preview.svg)
 
-## 成果速览
+## 结果展示
 
 | 展示项 | 当前结果 | 说明 |
 | --- | ---: | --- |
@@ -15,11 +15,11 @@ TubePlanner 是一个用于评估公共交通线路扩展方案的 Python 项目
 | 最优方案得分 | 149.40 | `bash scripts/run_demo.sh` 的确定性输出 |
 | 输出格式 | text / CSV / JSON | 适合 CLI 展示、自动化评估和二次分析 |
 
-## 简历亮点
+## 核心功能
 
 - 使用图建模、BFS 和 Edmonds-Karp 最大流算法评估交通扩展方案的容量收益。
 - 将成本约束、必要条件和期望条件封装为可配置评分流程，支持 text/CSV/JSON 输出。
-- 提供 CLI、Python API、离线 demo 和完整 pytest 覆盖，适合作为 Python 工程与算法能力展示。
+- 提供 CLI、Python API、离线 demo 和完整 pytest 覆盖，便于在本地复现评估流程并验证输出。
 
 ## 复现边界
 

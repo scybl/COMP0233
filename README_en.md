@@ -6,7 +6,7 @@ TubePlanner is a Python project for evaluating public-transport network extensio
 
 ![TubePlanner ranking preview](docs/images/showcase-preview.svg)
 
-## Result Showcase
+## Results
 
 | Showcase item | Current result | Notes |
 | --- | ---: | --- |
@@ -15,11 +15,11 @@ TubePlanner is a Python project for evaluating public-transport network extensio
 | Top proposal score | 149.40 | Deterministic output from `bash scripts/run_demo.sh` |
 | Output formats | text / CSV / JSON | Useful for CLI demos and downstream analysis |
 
-## Resume Highlights
+## Core Features
 
 - Uses graph modelling, BFS, and Edmonds-Karp maximum flow to evaluate the capacity benefit of transport extension proposals.
 - Packages cost constraints, essential criteria, and desirable criteria into a configurable scoring workflow with text/CSV/JSON output.
-- Provides a CLI, Python API, offline demo, and pytest coverage for a concise algorithms-and-engineering showcase.
+- Provides a CLI, Python API, offline demo, and pytest coverage so the evaluation flow can be reproduced and tested locally.
 
 ## Reproducibility Boundaries
 
@@ -32,7 +32,7 @@ TubePlanner is a Python project for evaluating public-transport network extensio
 | Need | Start here |
 | --- | --- |
 | One-command setup | `bash scripts/setup_env.sh` |
-| Offline showcase | `bash scripts/run_demo.sh` |
+| Offline demo | `bash scripts/run_demo.sh` |
 | Shared conda run | `conda run -n codex_python bash scripts/run_demo.sh` |
 | CLI ranking example | `python -m tube_planning.evaluation --network-file examples/baseline_network.csv --format csv examples/costs.fixed-cost examples/criteria.cfile "examples/proposals/*.csv"` |
 | Test suite | `pytest` |
@@ -43,7 +43,7 @@ The project models a transport network as an adjacency matrix, where each statio
 
 The evaluation pipeline combines two kinds of criteria. Cost criteria use fixed infrastructure and operating-cost assumptions to check whether a proposal stays within a planning budget. Performance criteria use breadth-first search and Edmonds-Karp maximum flow to estimate how much capacity a proposal adds between selected source and sink stations, including multi-source, multi-sink, and sufficient-flow scenarios.
 
-The package can be used in three ways: a one-command offline showcase, a CLI that ranks proposal files and outputs text/CSV/JSON, and a Python API for integrating the network and scoring logic into other scripts.
+The package can be used in three ways: a one-command offline demo, a CLI that ranks proposal files and outputs text/CSV/JSON, and a Python API for integrating the network and scoring logic into other scripts.
 
 ## Quick Start
 
@@ -53,7 +53,7 @@ One-command local setup:
 bash scripts/setup_env.sh
 ```
 
-Run the offline showcase:
+Run the offline demo:
 
 ```bash
 bash scripts/run_demo.sh
@@ -74,7 +74,7 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
-Run the one-command showcase:
+Run the one-command demo:
 
 ```bash
 python -m tube_planning.showcase
@@ -100,7 +100,7 @@ Rank  Proposal                   Score  Essential
 2     crosslink                  97.40  pass
 ```
 
-After installation, the same showcase is also available as:
+After installation, the same demo is also available as:
 
 ```bash
 tube-planning-showcase
