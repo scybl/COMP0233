@@ -6,9 +6,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def run_module(*args: str) -> str:
+def run_module(module: str, *args: str) -> str:
     result = subprocess.run(
-        [sys.executable, "-m", "tube_planning.evaluation", *args],
+        [sys.executable, "-m", module, *args],
         cwd=ROOT,
         check=True,
         capture_output=True,
@@ -19,6 +19,7 @@ def run_module(*args: str) -> str:
 
 def test_demo_result_files_match_cli_output():
     csv_output = run_module(
+        "tube_planning.evaluation",
         "--network-file",
         "examples/baseline_network.csv",
         "--format",
@@ -28,6 +29,7 @@ def test_demo_result_files_match_cli_output():
         "examples/proposals/*.csv",
     )
     json_output = run_module(
+        "tube_planning.evaluation",
         "--network-file",
         "examples/baseline_network.csv",
         "--format",
@@ -47,6 +49,7 @@ def test_demo_result_files_match_cli_output():
 
 def test_ucl_snapshot_result_file_matches_cli_output():
     output = run_module(
+        "tube_planning.evaluation",
         "--network-file",
         "data/ucl_snapshot/baseline_network.csv",
         "--format",
@@ -58,4 +61,30 @@ def test_ucl_snapshot_result_file_matches_cli_output():
 
     assert output == (
         ROOT / "data/ucl_snapshot/results/ranking_2026-07-01.csv"
+    ).read_text(encoding="utf-8")
+
+
+def test_ucl_snapshot_route_result_files_match_cli_output():
+    baseline_output = run_module(
+        "tube_planning.routing",
+        "--source",
+        "Highgate",
+        "--target",
+        "Waterloo",
+    )
+    proposal_output = run_module(
+        "tube_planning.routing",
+        "--source",
+        "Highgate",
+        "--target",
+        "Waterloo",
+        "--extra-edges",
+        "data/ucl_snapshot/proposals/goodrum.csv",
+    )
+
+    assert baseline_output == (
+        ROOT / "data/ucl_snapshot/results/route_highgate_waterloo.txt"
+    ).read_text(encoding="utf-8")
+    assert proposal_output == (
+        ROOT / "data/ucl_snapshot/results/route_highgate_waterloo_goodrum.txt"
     ).read_text(encoding="utf-8")

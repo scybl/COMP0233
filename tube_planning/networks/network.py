@@ -1,4 +1,5 @@
 from collections import deque
+import heapq
 from typing import Iterable
 
 import numpy as np
@@ -16,6 +17,7 @@ class Network:
 
     - construction from adjacency matrices or edge tables,
     - breadth-first search (BFS),
+    - weighted shortest paths via Dijkstra's algorithm,
     - reconstruction of paths from BFS traces,
     - maximum flow computation via the Edmonds–Karp algorithm,
     - multi-source and multi-sink flow problems via graph augmentation.
@@ -380,6 +382,82 @@ class Network:
                     node_queue.append(j)
 
         return path_trace
+
+    def dijkstra(self, source: int) -> tuple[list[float], list[int]]:
+        """
+        Compute weighted shortest-path distances from ``source``.
+
+        The adjacency matrix is interpreted as a positive edge-cost matrix for
+        this method. This is useful for travel-time networks, where lower edge
+        weights represent faster station-to-station movement. Capacity-focused
+        workflows should continue to use the maximum-flow methods.
+
+        Parameters
+        ----------
+        source : int
+            Source node index.
+
+        Returns
+        -------
+        tuple[list[float], list[int]]
+            Distances from ``source`` and predecessor indices for path
+            reconstruction. Unreachable nodes keep distance ``inf`` and
+            predecessor ``-1``.
+
+        Raises
+        ------
+        TubePlanningError
+            If the source node is invalid.
+        """
+        if not isinstance(source, int) or source < 0 or source >= self.n_nodes:
+            raise TubePlanningError("Invalid source node index.")
+
+        distances = [float("inf")] * self.n_nodes
+        predecessors = [-1] * self.n_nodes
+        distances[source] = 0.0
+        predecessors[source] = source
+        queue: list[tuple[float, int]] = [(0.0, source)]
+
+        while queue:
+            current_distance, node = heapq.heappop(queue)
+            if current_distance > distances[node]:
+                continue
+
+            for neighbour, weight in enumerate(self.adjacency_matrix[node]):
+                if weight <= 0:
+                    continue
+                candidate_distance = current_distance + float(weight)
+                if candidate_distance < distances[neighbour]:
+                    distances[neighbour] = candidate_distance
+                    predecessors[neighbour] = node
+                    heapq.heappush(queue, (candidate_distance, neighbour))
+
+        return distances, predecessors
+
+    def shortest_path(self, source: int, target: int) -> tuple[float, list[int]]:
+        """
+        Return the Dijkstra shortest path between two nodes.
+
+        The network weights are interpreted as positive costs. For the bundled
+        TfL snapshot this means estimated station-to-station travel time in
+        minutes.
+        """
+        if not isinstance(target, int) or target < 0 or target >= self.n_nodes:
+            raise TubePlanningError("Invalid target node index.")
+
+        distances, predecessors = self.dijkstra(source)
+        if not np.isfinite(distances[target]):
+            raise TubePlanningError("Target node cannot be reached from source.")
+
+        path = [target]
+        while path[-1] != source:
+            parent = predecessors[path[-1]]
+            if parent < 0:
+                raise TubePlanningError("Target node cannot be reached from source.")
+            path.append(parent)
+        path.reverse()
+
+        return float(distances[target]), path
 
     def capacity_constraint(self, flow: Flow) -> bool:
         """

@@ -1,0 +1,5 @@
+Source: Highgate (123)
+Target: Waterloo (271)
+Estimated travel time: 22.00 minutes
+Route:
+Highgate -> Archway -> Tufnell park -> Kentish town -> Camden town -> Euston -> Warren street -> Goodge street -> Tottenham court road -> Leicester square -> Charing cross -> Embankment -> Waterloo

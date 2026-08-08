@@ -13,6 +13,7 @@ dependencies = [
 [project.scripts]
 evaluate-proposals = "tube_planning.evaluation:main"
 tube-planning-showcase = "tube_planning.showcase:main"
+tube-route = "tube_planning.routing:main"
 
 [project.optional-dependencies]
 dev = [
