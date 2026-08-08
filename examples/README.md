@@ -26,6 +26,7 @@
 - `proposals/*.csv`：候选扩展方案边表。
 - `criteria.cfile`：必要和期望评估指标。
 - `costs.fixed-cost`：固定建设和运营成本配置。
+- `results/`：可对照的 CSV 和 JSON 输出结果。
 
 ## 运行
 
@@ -43,6 +44,18 @@ make cli
 
 ```bash
 python -m tube_planning.evaluation --network-file examples/baseline_network.csv --format csv examples/costs.fixed-cost examples/criteria.cfile "examples/proposals/*.csv"
+```
+
+JSON 输出：
+
+```bash
+python -m tube_planning.evaluation --network-file examples/baseline_network.csv --format json examples/costs.fixed-cost examples/criteria.cfile "examples/proposals/*.csv"
+```
+
+重新生成对照结果：
+
+```bash
+make results
 ```
 
 ## CSV 格式

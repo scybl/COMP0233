@@ -56,6 +56,21 @@ Run the UCL snapshot CLI directly:
 python -m tube_planning.evaluation --network-file data/ucl_snapshot/baseline_network.csv --format csv data/ucl_snapshot/costs/2026-07-01.fixed-cost data/ucl_snapshot/demo_criteria.cfile "data/ucl_snapshot/proposals/*.csv"
 ```
 
+More run examples:
+
+```bash
+make cli
+make ucl-demo
+make results
+python -m tube_planning.evaluation --network-file examples/baseline_network.csv --format json examples/costs.fixed-cost examples/criteria.cfile "examples/proposals/*.csv"
+```
+
+Expected output files:
+
+- `examples/results/demo_ranking.csv`
+- `examples/results/demo_ranking.json`
+- `data/ucl_snapshot/results/ranking_2026-07-01.csv`
+
 ## Requirements
 
 - Python 3.10+
@@ -74,7 +89,9 @@ python -m tube_planning.evaluation --network-file data/ucl_snapshot/baseline_net
 ```text
 tube_planning/        Core package
 data/ucl_snapshot/    Local UCL service snapshot
+data/ucl_snapshot/results/  UCL snapshot output examples
 examples/             Example data
+examples/results/     Small example output files
 tests/                Tests
 scripts/              Setup and run scripts
 docs/images/          README result image

@@ -26,6 +26,7 @@ Expected ranking:
 - `proposals/*.csv`: candidate extension edge tables.
 - `criteria.cfile`: essential and desirable evaluation criteria.
 - `costs.fixed-cost`: fixed infrastructure and operating cost assumptions.
+- `results/`: expected CSV and JSON outputs.
 
 ## Run
 
@@ -43,6 +44,18 @@ Equivalent Python module command:
 
 ```bash
 python -m tube_planning.evaluation --network-file examples/baseline_network.csv --format csv examples/costs.fixed-cost examples/criteria.cfile "examples/proposals/*.csv"
+```
+
+JSON output:
+
+```bash
+python -m tube_planning.evaluation --network-file examples/baseline_network.csv --format json examples/costs.fixed-cost examples/criteria.cfile "examples/proposals/*.csv"
+```
+
+Regenerate expected outputs:
+
+```bash
+make results
 ```
 
 ## CSV Format

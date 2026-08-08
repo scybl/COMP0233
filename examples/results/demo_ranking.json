@@ -1,0 +1,14 @@
+[
+  {
+    "rank": 1,
+    "proposal": "central_connector",
+    "score": 149.4,
+    "essential_passed": true
+  },
+  {
+    "rank": 2,
+    "proposal": "crosslink",
+    "score": 97.4,
+    "essential_passed": true
+  }
+]
