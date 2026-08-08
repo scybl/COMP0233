@@ -44,3 +44,17 @@ make cli
 ```bash
 python -m tube_planning.evaluation --network-file examples/baseline_network.csv --format csv examples/costs.fixed-cost examples/criteria.cfile "examples/proposals/*.csv"
 ```
+
+## CSV 格式
+
+网络和候选方案文件使用边表格式：
+
+```text
+station_i,station_j,travel_time_minutes
+```
+
+通行时间会转换为容量：
+
+```text
+capacity = 60 / travel_time_minutes
+```

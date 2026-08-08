@@ -1,218 +1,78 @@
 # TubePlanner
 
-[English Version](README_en.md)
+[English](README_en.md)
 
-TubePlanner 是一个用于评估公共交通线路扩展方案的 Python 项目。项目从 CSV 边表中读取基准网络和候选扩展方案，将通行时间转换为图容量，根据成本和网络流指标对每个方案进行评估，并输出可复现的排序结果。
+TubePlanner 是一个公共交通网络扩展评估工具。它从 CSV 边表读取基准网络和候选扩展方案，结合成本约束与最大流指标，对方案进行排序。
 
 ![TubePlanner 排序结果预览](docs/images/showcase-preview.svg)
 
-## 结果展示
-
-| 展示项 | 当前结果 | 说明 |
-| --- | ---: | --- |
-| 示例网络规模 | 6 个站点 / 6 条连接 | 内置 CSV 离线数据，可直接复现 |
-| 最优候选方案 | `central_connector` | 在成本约束和最大流收益下排名第一 |
-| 最优方案得分 | 149.40 | `bash scripts/run_demo.sh` 的确定性输出 |
-| 输出格式 | text / CSV / JSON | 适合 CLI 展示、自动化评估和二次分析 |
-
-## 核心功能
-
-- 使用图建模、BFS 和 Edmonds-Karp 最大流算法评估交通扩展方案的容量收益。
-- 将成本约束、必要条件和期望条件封装为可配置评分流程，支持 text/CSV/JSON 输出。
-- 提供 CLI、Python API、离线 demo 和完整 pytest 覆盖，便于在本地复现评估流程并验证输出。
-
-## 复现边界
-
-- 仓库内置 `examples/` 离线数据，clone 后无需外部 API 即可运行 demo 和测试。
-- 线上交通数据查询相关逻辑保留在代码中，但 README 默认展示路径使用可复现的本地 CSV 示例。
-- GitHub Actions 会运行 lint 与测试，用于验证项目基础质量。
-
-## 快速上手索引
-
-| 目标 | 入口 |
-| --- | --- |
-| 一键配置环境 | `bash scripts/setup_env.sh` |
-| 离线展示 | `bash scripts/run_demo.sh` |
-| 复用共享 conda 环境 | `conda run -n codex_python bash scripts/run_demo.sh` |
-| CLI 排序示例 | `python -m tube_planning.evaluation --network-file examples/baseline_network.csv --format csv examples/costs.fixed-cost examples/criteria.cfile "examples/proposals/*.csv"` |
-| 运行测试 | `pytest` |
-
 ## 功能说明
 
-项目将交通网络表示为邻接矩阵，其中站点是节点，线路连接是边。候选扩展方案以额外的边表表示，评估时会与基准网络合并，形成新的候选网络。
+- 将站点和线路转换为图结构，并把通行时间换算为容量。
+- 使用 BFS 和 Edmonds-Karp 最大流算法评估候选方案的容量收益。
+- 支持必要条件、期望条件和固定成本配置。
+- 支持 text、CSV、JSON 三种输出格式。
 
-评估流程结合两类指标。成本指标根据固定的建设和运营成本配置，判断方案是否满足预算约束。性能指标使用 BFS 和 Edmonds-Karp 最大流算法，计算候选方案在指定源点和汇点之间带来的容量变化，并支持多源点、多汇点以及充足流场景。
+## 结果展示
 
-项目提供三种使用方式：一键运行的离线展示、可输出 text/CSV/JSON 的命令行评估工具，以及可以在其他脚本中直接调用的 Python API。
-
-## 安装与启动
-
-一键安装并运行离线展示：
-
-```bash
-bash scripts/setup_env.sh
-bash scripts/run_demo.sh
-```
-
-如果已经有共享 conda 环境，可以直接复用：
-
-```bash
-conda run -n codex_python bash scripts/run_demo.sh
-```
-
-也可以手动安装：
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-pip install -e .
-```
-
-运行一键展示：
-
-```bash
-python -m tube_planning.showcase
-```
-
-也可以使用项目快捷命令：
-
-```bash
-make demo
-```
+| 项目 | 结果 |
+| --- | --- |
+| 示例网络 | 6 个站点，6 条连接 |
+| 排名第一方案 | `central_connector` |
+| 方案得分 | 149.40 |
+| 必要条件 | pass |
 
 示例输出：
 
 ```text
-Tube Planning Showcase
-======================
-Baseline network: 6 stations, 6 connections
-Scenario: rank candidate extensions by cost and flow performance
-
 Rank  Proposal                   Score  Essential
 ----------------------------------------------------
 1     central_connector         149.40  pass
 2     crosslink                  97.40  pass
 ```
 
-安装后也可以直接运行：
+## 快速上手
 
 ```bash
-tube-planning-showcase
+bash scripts/setup_env.sh
+bash scripts/run_demo.sh
 ```
 
-## 命令行调用
+复用已有 conda 环境：
 
-使用内置离线示例运行完整评估：
+```bash
+conda run -n codex_python bash scripts/run_demo.sh
+```
+
+运行 CLI：
 
 ```bash
 python -m tube_planning.evaluation --network-file examples/baseline_network.csv --format csv examples/costs.fixed-cost examples/criteria.cfile "examples/proposals/*.csv"
 ```
 
-输出：
+## 环境要求
 
-```csv
-rank,proposal,score,essential_passed
-1,central_connector,149.40,True
-2,crosslink,97.40,True
-```
+- Python 3.10+
+- 依赖见 `requirements.txt`
 
-已安装命令行版本：
+## 数据说明
 
-```bash
-evaluate-proposals --network-file examples/baseline_network.csv --format json examples/costs.fixed-cost examples/criteria.cfile "examples/proposals/*.csv"
-```
-
-常用参数：
-
-- `--network-file PATH`：指定本地基准网络 CSV。
-- `--format {text,csv,json}`：指定输出格式。
-- `-o, --output-file PATH`：将排序结果写入文件。
-
-内置 CLI 场景也可以用快捷命令运行：
-
-```bash
-make cli
-```
-
-## Python 代码调用示例
-
-下面的代码会读取 `examples/` 中的基准网络、成本配置、指标配置和两个候选方案，并输出排序结果：
-
-```python
-from pathlib import Path
-
-from tube_planning.criteria.group import CriteriaGroup
-from tube_planning.evaluation import evaluate_proposals, rank_proposals
-from tube_planning.networks import Network, Proposal
-from tube_planning.utils import adjacency_from_edges, read_edge_csv, read_fixed_costs
-
-root = Path(".")
-example_dir = root / "examples"
-
-baseline_rows = read_edge_csv(example_dir / "baseline_network.csv")
-baseline = Network(
-    adj_mat=adjacency_from_edges(baseline_rows, weights_are_travel_times=True)
-)
-
-criteria = CriteriaGroup.from_file(example_dir / "criteria.cfile")
-costs = read_fixed_costs(example_dir / "costs.fixed-cost")
-proposals = [
-    Proposal.from_file(path, name=path.stem)
-    for path in sorted((example_dir / "proposals").glob("*.csv"))
-]
-
-records = evaluate_proposals(proposals, criteria, baseline, costs)
-ranked = rank_proposals(records)
-
-for rank, record in enumerate(ranked, start=1):
-    print(rank, record["proposal"].name, round(record["score"], 2))
-```
-
-预期结果：
-
-```text
-1 central_connector 149.4
-2 crosslink 97.4
-```
-
-## 输入文件格式
-
-网络和候选方案 CSV 使用边表格式：
-
-```text
-station_i,station_j,travel_time_minutes
-```
-
-项目会将通行时间转换为容量：
-
-```text
-capacity = 60 / travel_time_minutes
-```
-
-评价指标写在 JSON `.cfile` 文件中，固定成本写在 JSON `.fixed-cost` 文件中。`examples/` 目录包含一个完整的离线示例。
+- `examples/baseline_network.csv` 是基准网络。
+- `examples/proposals/` 存放候选扩展方案。
+- `examples/costs.fixed-cost` 和 `examples/criteria.cfile` 存放成本与评价配置。
 
 ## 目录结构
 
 ```text
 tube_planning/        核心代码
-  flow.py             流表示与路径增广
-  networks/           网络和候选方案图模型
-  criteria/           成本与性能评分
-  evaluation.py       CLI 排序流程
-  showcase.py         离线展示入口
-examples/             离线示例数据
-tests/                算法和评估流程测试
+examples/             示例数据
+tests/                测试
+scripts/              环境配置和运行脚本
+docs/images/          README 结果图
 ```
 
 ## 测试
 
 ```bash
 pytest -q
-```
-
-快捷命令：
-
-```bash
-make test
 ```
