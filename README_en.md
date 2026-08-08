@@ -2,7 +2,7 @@
 
 [中文](README.md)
 
-TubePlanner is a public-transport route planning and proposal-evaluation tool built around TfL network data. It uses a local snapshot from the UCL RSE Tube Planning Web Service; the service combines 2017 line data with newer TfL API-derived sources and includes simulated candidate extensions and cost data.
+TubePlanner is a public-transport route planning and proposal-evaluation tool built around TfL network data. It includes a local TfL-derived snapshot with stations, lines, candidate extensions, and simulated cost data for London Underground, light rail, and related rail services.
 
 The project converts London Underground, light rail, and related rail connections into weighted graphs for estimated best-route planning, shortest travel-time comparison, and cross-city capacity evaluation. It focuses on offline planning analysis and does not provide live congestion or interchange updates.
 
@@ -18,15 +18,15 @@ The project converts London Underground, light rail, and related rail connection
 
 | Item | Result |
 | --- | --- |
-| UCL snapshot network | 446 stations, 535 equivalent links |
+| TfL snapshot network | 446 stations, 535 equivalent links |
 | Candidate proposals | 7 |
 | Cost date | 2026-07-01 |
 | Top proposal | `thameslink` |
 | Route example | `Highgate -> Waterloo` |
 | Baseline shortest travel time | `22.00 minutes` |
 | With `goodrum` proposal | `15.00 minutes` |
-| Ranking output | `data/ucl_snapshot/results/ranking_2026-07-01.csv` |
-| Route output | `data/ucl_snapshot/results/route_highgate_waterloo.txt` |
+| Ranking output | `data/tfl_snapshot/results/ranking_2026-07-01.csv` |
+| Route output | `data/tfl_snapshot/results/route_highgate_waterloo.txt` |
 
 Ranking sample:
 
@@ -51,13 +51,13 @@ Highgate -> Archway -> Tufnell park -> Kentish town -> Camden town -> Euston -> 
 
 ```bash
 bash scripts/setup_env.sh
-bash scripts/run_ucl_snapshot.sh
+bash scripts/run_tfl_snapshot.sh
 ```
 
 Reuse an existing conda environment:
 
 ```bash
-conda run -n codex_python bash scripts/run_ucl_snapshot.sh
+conda run -n codex_python bash scripts/run_tfl_snapshot.sh
 ```
 
 Run the small offline example:
@@ -70,20 +70,20 @@ Run the shortest-route example:
 
 ```bash
 python -m tube_planning.routing --source Highgate --target Waterloo
-python -m tube_planning.routing --source Highgate --target Waterloo --extra-edges data/ucl_snapshot/proposals/goodrum.csv
+python -m tube_planning.routing --source Highgate --target Waterloo --extra-edges data/tfl_snapshot/proposals/goodrum.csv
 ```
 
-Run the UCL snapshot CLI directly:
+Run the TfL snapshot CLI directly:
 
 ```bash
-python -m tube_planning.evaluation --network-file data/ucl_snapshot/baseline_network.csv --format csv data/ucl_snapshot/costs/2026-07-01.fixed-cost data/ucl_snapshot/demo_criteria.cfile "data/ucl_snapshot/proposals/*.csv"
+python -m tube_planning.evaluation --network-file data/tfl_snapshot/baseline_network.csv --format csv data/tfl_snapshot/costs/2026-07-01.fixed-cost data/tfl_snapshot/demo_criteria.cfile "data/tfl_snapshot/proposals/*.csv"
 ```
 
 More run examples:
 
 ```bash
 make cli
-make ucl-demo
+make tfl-demo
 make route-demo
 make results
 python -m tube_planning.evaluation --network-file examples/baseline_network.csv --format json examples/costs.fixed-cost examples/criteria.cfile "examples/proposals/*.csv"
@@ -93,9 +93,9 @@ Expected output files:
 
 - `examples/results/demo_ranking.csv`
 - `examples/results/demo_ranking.json`
-- `data/ucl_snapshot/results/ranking_2026-07-01.csv`
-- `data/ucl_snapshot/results/route_highgate_waterloo.txt`
-- `data/ucl_snapshot/results/route_highgate_waterloo_goodrum.txt`
+- `data/tfl_snapshot/results/ranking_2026-07-01.csv`
+- `data/tfl_snapshot/results/route_highgate_waterloo.txt`
+- `data/tfl_snapshot/results/route_highgate_waterloo_goodrum.txt`
 
 ## Requirements
 
@@ -104,18 +104,18 @@ Expected output files:
 
 ## Data Notes
 
-- `data/ucl_snapshot/` is a local snapshot from the UCL RSE Tube Planning Web Service.
-- The snapshot includes lines, station indices, candidate proposals, and 2026 cost data; the service states that it combines 2017 data with newer TfL API-derived sources, and that candidate proposals and costs are simulated.
+- `data/tfl_snapshot/` is a local TfL-derived snapshot.
+- The snapshot includes lines, station indices, candidate proposals, and 2026 cost data; candidate extensions and costs are simulated for offline planning analysis.
 - `examples/` is a small synthetic example that does not depend on external services.
-- To refresh the snapshot, run `python scripts/cache_ucl_snapshot.py`.
+- To refresh the snapshot, run `python scripts/cache_tfl_snapshot.py --service-url <compatible-service-url>`.
 - For live mode, set `TUBE_PLANNING_WEB_SERVICE` and use `--live-costings` or `--routes`.
 
 ## Project Layout
 
 ```text
 tube_planning/        Core package
-data/ucl_snapshot/    Local UCL service snapshot
-data/ucl_snapshot/results/  UCL snapshot output examples
+data/tfl_snapshot/    Local TfL-derived snapshot
+data/tfl_snapshot/results/  TfL snapshot output examples
 examples/             Example data
 examples/results/     Small example output files
 tests/                Tests

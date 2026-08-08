@@ -19,8 +19,8 @@ from tube_planning.networks.network import Network
 from tube_planning.utils import CLIParser, read_edge_csv
 
 
-DEFAULT_STATIONS_FILE = "data/ucl_snapshot/stations.csv"
-DEFAULT_LINE_PATTERN = "data/ucl_snapshot/lines/*.csv"
+DEFAULT_STATIONS_FILE = "data/tfl_snapshot/stations.csv"
+DEFAULT_LINE_PATTERN = "data/tfl_snapshot/lines/*.csv"
 
 
 @dataclass(frozen=True)
@@ -231,7 +231,7 @@ def build_parser() -> CLIParser:
     parser.add_argument(
         "--stations",
         default=DEFAULT_STATIONS_FILE,
-        help="Station lookup CSV. Defaults to the bundled UCL snapshot.",
+        help="Station lookup CSV. Defaults to the bundled TfL snapshot.",
     )
     parser.add_argument(
         "--lines",

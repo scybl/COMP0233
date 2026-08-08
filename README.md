@@ -2,7 +2,7 @@
 
 [English](README_en.md)
 
-TubePlanner 是一个基于 TfL 网络数据的公共交通线路规划评估工具。项目使用 UCL RSE Tube Planning Web Service 的本地快照；该服务整合 2017 年线路数据和较新的 TfL API 衍生来源，并包含模拟候选扩展方案与成本数据。
+TubePlanner 是一个基于 TfL 网络数据的公共交通线路规划评估工具。项目内置本地 TfL 派生快照，包含伦敦地铁、轻轨和相关轨道交通的站点、线路、候选扩展方案与模拟成本数据。
 
 项目将伦敦地铁、轻轨和相关轨道交通站点连接转换为带权图，用于估算站点间最佳路线、比较候选扩展方案对最短通行时间和跨区域通行能力的影响。当前重点是离线规划评估，不提供实时拥堵或实时换乘信息。
 
@@ -18,15 +18,15 @@ TubePlanner 是一个基于 TfL 网络数据的公共交通线路规划评估工
 
 | 项目 | 结果 |
 | --- | --- |
-| UCL 快照网络 | 446 个站点，535 条等价连接 |
+| TfL 快照网络 | 446 个站点，535 条等价连接 |
 | 候选方案 | 7 个 |
 | 成本日期 | 2026-07-01 |
 | 排名第一方案 | `thameslink` |
 | 最短路示例 | `Highgate -> Waterloo` |
 | 基准最短通行时间 | `22.00 minutes` |
 | 叠加 `goodrum` 后 | `15.00 minutes` |
-| 排名输出 | `data/ucl_snapshot/results/ranking_2026-07-01.csv` |
-| 路线输出 | `data/ucl_snapshot/results/route_highgate_waterloo.txt` |
+| 排名输出 | `data/tfl_snapshot/results/ranking_2026-07-01.csv` |
+| 路线输出 | `data/tfl_snapshot/results/route_highgate_waterloo.txt` |
 
 方案排序示例：
 
@@ -51,13 +51,13 @@ Highgate -> Archway -> Tufnell park -> Kentish town -> Camden town -> Euston -> 
 
 ```bash
 bash scripts/setup_env.sh
-bash scripts/run_ucl_snapshot.sh
+bash scripts/run_tfl_snapshot.sh
 ```
 
 复用已有 conda 环境：
 
 ```bash
-conda run -n codex_python bash scripts/run_ucl_snapshot.sh
+conda run -n codex_python bash scripts/run_tfl_snapshot.sh
 ```
 
 运行小型离线示例：
@@ -70,20 +70,20 @@ bash scripts/run_demo.sh
 
 ```bash
 python -m tube_planning.routing --source Highgate --target Waterloo
-python -m tube_planning.routing --source Highgate --target Waterloo --extra-edges data/ucl_snapshot/proposals/goodrum.csv
+python -m tube_planning.routing --source Highgate --target Waterloo --extra-edges data/tfl_snapshot/proposals/goodrum.csv
 ```
 
-直接运行 UCL 快照 CLI：
+直接运行 TfL 快照 CLI：
 
 ```bash
-python -m tube_planning.evaluation --network-file data/ucl_snapshot/baseline_network.csv --format csv data/ucl_snapshot/costs/2026-07-01.fixed-cost data/ucl_snapshot/demo_criteria.cfile "data/ucl_snapshot/proposals/*.csv"
+python -m tube_planning.evaluation --network-file data/tfl_snapshot/baseline_network.csv --format csv data/tfl_snapshot/costs/2026-07-01.fixed-cost data/tfl_snapshot/demo_criteria.cfile "data/tfl_snapshot/proposals/*.csv"
 ```
 
 更多运行例子：
 
 ```bash
 make cli
-make ucl-demo
+make tfl-demo
 make route-demo
 make results
 python -m tube_planning.evaluation --network-file examples/baseline_network.csv --format json examples/costs.fixed-cost examples/criteria.cfile "examples/proposals/*.csv"
@@ -93,9 +93,9 @@ python -m tube_planning.evaluation --network-file examples/baseline_network.csv 
 
 - `examples/results/demo_ranking.csv`
 - `examples/results/demo_ranking.json`
-- `data/ucl_snapshot/results/ranking_2026-07-01.csv`
-- `data/ucl_snapshot/results/route_highgate_waterloo.txt`
-- `data/ucl_snapshot/results/route_highgate_waterloo_goodrum.txt`
+- `data/tfl_snapshot/results/ranking_2026-07-01.csv`
+- `data/tfl_snapshot/results/route_highgate_waterloo.txt`
+- `data/tfl_snapshot/results/route_highgate_waterloo_goodrum.txt`
 
 ## 环境要求
 
@@ -104,18 +104,18 @@ python -m tube_planning.evaluation --network-file examples/baseline_network.csv 
 
 ## 数据说明
 
-- `data/ucl_snapshot/` 是 UCL RSE Tube Planning Web Service 的本地快照。
-- 快照包含线路、站点索引、候选方案和 2026 年成本表；服务说明称其结合了 2017 年数据和较新的 TfL API 衍生来源，候选扩展方案和成本数据为模拟数据。
+- `data/tfl_snapshot/` 是本地 TfL 派生快照。
+- 快照包含线路、站点索引、候选方案和 2026 年成本表；候选扩展方案和成本数据为模拟数据，用于离线规划分析。
 - `examples/` 是不依赖外部服务的小型合成示例。
-- 如需刷新快照，运行 `python scripts/cache_ucl_snapshot.py`。
+- 如需刷新快照，运行 `python scripts/cache_tfl_snapshot.py --service-url <compatible-service-url>`。
 - 如需联网模式，设置 `TUBE_PLANNING_WEB_SERVICE`，并使用 `--live-costings` 或 `--routes`。
 
 ## 目录结构
 
 ```text
 tube_planning/        核心代码
-data/ucl_snapshot/    UCL 服务本地快照
-data/ucl_snapshot/results/  UCL 快照输出样例
+data/tfl_snapshot/    TfL 派生本地快照
+data/tfl_snapshot/results/  TfL 快照输出样例
 examples/             示例数据
 examples/results/     小型示例输出样例
 tests/                测试

@@ -47,24 +47,24 @@ def test_demo_result_files_match_cli_output():
     )
 
 
-def test_ucl_snapshot_result_file_matches_cli_output():
+def test_tfl_snapshot_result_file_matches_cli_output():
     output = run_module(
         "tube_planning.evaluation",
         "--network-file",
-        "data/ucl_snapshot/baseline_network.csv",
+        "data/tfl_snapshot/baseline_network.csv",
         "--format",
         "csv",
-        "data/ucl_snapshot/costs/2026-07-01.fixed-cost",
-        "data/ucl_snapshot/demo_criteria.cfile",
-        "data/ucl_snapshot/proposals/*.csv",
+        "data/tfl_snapshot/costs/2026-07-01.fixed-cost",
+        "data/tfl_snapshot/demo_criteria.cfile",
+        "data/tfl_snapshot/proposals/*.csv",
     )
 
     assert output == (
-        ROOT / "data/ucl_snapshot/results/ranking_2026-07-01.csv"
+        ROOT / "data/tfl_snapshot/results/ranking_2026-07-01.csv"
     ).read_text(encoding="utf-8")
 
 
-def test_ucl_snapshot_route_result_files_match_cli_output():
+def test_tfl_snapshot_route_result_files_match_cli_output():
     baseline_output = run_module(
         "tube_planning.routing",
         "--source",
@@ -79,12 +79,12 @@ def test_ucl_snapshot_route_result_files_match_cli_output():
         "--target",
         "Waterloo",
         "--extra-edges",
-        "data/ucl_snapshot/proposals/goodrum.csv",
+        "data/tfl_snapshot/proposals/goodrum.csv",
     )
 
     assert baseline_output == (
-        ROOT / "data/ucl_snapshot/results/route_highgate_waterloo.txt"
+        ROOT / "data/tfl_snapshot/results/route_highgate_waterloo.txt"
     ).read_text(encoding="utf-8")
     assert proposal_output == (
-        ROOT / "data/ucl_snapshot/results/route_highgate_waterloo_goodrum.txt"
+        ROOT / "data/tfl_snapshot/results/route_highgate_waterloo_goodrum.txt"
     ).read_text(encoding="utf-8")

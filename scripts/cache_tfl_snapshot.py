@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Cache the UCL Tube Planning web-service data for offline demos."""
+"""Cache compatible TfL planning data for offline demos."""
 
 from __future__ import annotations
 
@@ -14,8 +14,7 @@ from typing import Iterable
 import requests
 
 
-DEFAULT_SERVICE_URL = "https://rse-with-python.arc.ucl.ac.uk/tube-planning"
-DEFAULT_OUTPUT_DIR = Path("data/ucl_snapshot")
+DEFAULT_OUTPUT_DIR = Path("data/tfl_snapshot")
 
 
 def slugify(value: str) -> str:
@@ -188,10 +187,10 @@ def cache_snapshot(service_url: str, output_dir: Path) -> dict:
     )
 
     manifest = {
-        "source": service_url.rstrip("/"),
+        "source": "TfL-derived local planning snapshot",
         "source_note": (
-            "UCL RSE Tube Planning service; combines 2017 data with more recent "
-            "TfL API-derived sources and includes made-up expansion proposals."
+            "Local network sample derived from TfL-style station and route data; "
+            "proposal routes and costs are simulated for offline planning analysis."
         ),
         "snapshot_contents": {
             "lines": len(lines),
@@ -216,7 +215,11 @@ def cache_snapshot(service_url: str, output_dir: Path) -> dict:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--service-url", default=DEFAULT_SERVICE_URL)
+    parser.add_argument(
+        "--service-url",
+        required=True,
+        help="Compatible planning web-service base URL.",
+    )
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     return parser
 
@@ -226,7 +229,7 @@ def main() -> None:
     manifest = cache_snapshot(args.service_url, args.output_dir)
     contents = manifest["snapshot_contents"]
     print(
-        "Cached UCL snapshot: "
+        "Cached TfL planning snapshot: "
         f"{contents['lines']} lines, "
         f"{contents['stations']} stations, "
         f"{contents['proposals']} proposals, "

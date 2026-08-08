@@ -28,9 +28,9 @@ def test_readme_uses_reproducible_text_results_not_static_image():
     assert "showcase-preview.svg" not in english
     assert "![TubePlanner" not in readme
     assert "![TubePlanner" not in english
-    assert "data/ucl_snapshot/results/ranking_2026-07-01.csv" in readme
-    assert "data/ucl_snapshot/results/ranking_2026-07-01.csv" in english
-    assert "data/ucl_snapshot/results/route_highgate_waterloo.txt" in readme
-    assert "data/ucl_snapshot/results/route_highgate_waterloo.txt" in english
+    assert "data/tfl_snapshot/results/ranking_2026-07-01.csv" in readme
+    assert "data/tfl_snapshot/results/ranking_2026-07-01.csv" in english
+    assert "data/tfl_snapshot/results/route_highgate_waterloo.txt" in readme
+    assert "data/tfl_snapshot/results/route_highgate_waterloo.txt" in english
     assert "Dijkstra" in readme
     assert "Dijkstra" in english

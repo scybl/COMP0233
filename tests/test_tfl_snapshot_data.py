@@ -8,14 +8,14 @@ from tube_planning.utils import read_fixed_costs
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SNAPSHOT = ROOT / "data" / "ucl_snapshot"
+SNAPSHOT = ROOT / "data" / "tfl_snapshot"
 
 
-def test_ucl_snapshot_manifest_matches_cached_files():
+def test_tfl_snapshot_manifest_matches_cached_files():
     manifest = json.loads((SNAPSHOT / "manifest.json").read_text(encoding="utf-8"))
     contents = manifest["snapshot_contents"]
 
-    assert manifest["source"] == "https://rse-with-python.arc.ucl.ac.uk/tube-planning"
+    assert manifest["source"] == "TfL-derived local planning snapshot"
     assert len(list((SNAPSHOT / "lines").glob("*.csv"))) == contents["lines"] == 21
     assert len(list((SNAPSHOT / "proposals").glob("*.csv"))) == contents["proposals"] == 7
 
@@ -30,7 +30,7 @@ def test_ucl_snapshot_manifest_matches_cached_files():
     assert costs[-1]["construction-date"] == "2026-12-31"
 
 
-def test_ucl_snapshot_demo_inputs_are_loadable():
+def test_tfl_snapshot_demo_inputs_are_loadable():
     Proposal._all_proposals.clear()
 
     network = _load_base_network(str(SNAPSHOT / "baseline_network.csv"))
